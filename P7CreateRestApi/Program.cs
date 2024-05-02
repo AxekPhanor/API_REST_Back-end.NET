@@ -19,6 +19,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    using(var scope = app.Services.CreateScope())
+    {
+        var dbcontext = scope.ServiceProvider.GetRequiredService<LocalDbContext>();
+        dbcontext.Database.EnsureCreated();
+    }
     app.UseSwagger();
     app.UseSwaggerUI();
 }
