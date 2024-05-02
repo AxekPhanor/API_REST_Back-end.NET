@@ -24,42 +24,63 @@ namespace P7CreateRestApi.Services
             return list;
         }
 
-        public void Create(CurvePointInputModel inputModel)
+        public CurvePointOutputModel? Create(CurvePointInputModel inputModel)
         {
-            _curvePointRepository.Create(new CurvePoint {
+            var curvePoint = new CurvePoint
+            {
+                CurveId = inputModel.CurveId,
+                AsOfDate = inputModel.AsOfDate,
+                CurvePointValue = inputModel.CurvePointValue,
+                CreationDate = DateTime.Now
+            };
+            _curvePointRepository.Create(curvePoint);
+            return ToOutputModel(curvePoint);
+        }
+
+        public CurvePointOutputModel? Get(int id)
+        {
+            var curvePoint = _curvePointRepository.Get(id);
+            if (curvePoint is not null)
+            {
+                return ToOutputModel(curvePoint);
+            }
+            return null;
+        }
+
+        public CurvePointOutputModel? Update(int id, CurvePointInputModel inputModel)
+        {
+            var curvePoint = _curvePointRepository.Update(new CurvePoint
+            {
+                Id = id,
                 CurveId = inputModel.CurveId,
                 AsOfDate = inputModel.AsOfDate,
                 CurvePointValue = inputModel.CurvePointValue,
                 CreationDate = DateTime.Now
             });
-        }
-
-        public CurvePoint? Get(int id) => _curvePointRepository.Get(id);
-
-        public void Update(int id, CurvePointInputModel inputModel)
-        {
-            var curvePoint = _curvePointRepository.Get(id);
-            if(curvePoint is not null)
-            {
-                _curvePointRepository.Update(new CurvePoint
-                {
-                    Id = curvePoint.Id,
-                    CurveId = inputModel.CurveId,
-                    AsOfDate = inputModel.AsOfDate,
-                    CurvePointValue = inputModel.CurvePointValue,
-                    CreationDate = DateTime.Now
-                });
+            if(curvePoint is not null) 
+            { 
+                return ToOutputModel(curvePoint);
             }
+            return null;
         }
 
-        public void Delete(int id) => _curvePointRepository.Delete(id);
+        public CurvePointOutputModel? Delete(int id) 
+        {
+            var curvePoint = _curvePointRepository.Delete(id);
+            if (curvePoint is not null)
+            {
+                return ToOutputModel(curvePoint);
+            }
+            return null;
+        } 
 
-        private CurvePointOutputModel ToOutputModel(CurvePoint curvePoint) => 
-            new CurvePointOutputModel { 
-                Id = curvePoint.Id, 
-                CurveId = curvePoint.CurveId, 
-                AsOfDate = curvePoint.AsOfDate, 
-                CurvePointValue = curvePoint.CurvePointValue 
+        private CurvePointOutputModel ToOutputModel(CurvePoint curvePoint) =>
+            new CurvePointOutputModel
+            {
+                Id = curvePoint.Id,
+                CurveId = curvePoint.CurveId,
+                AsOfDate = curvePoint.AsOfDate,
+                CurvePointValue = curvePoint.CurvePointValue
             };
     }
 }

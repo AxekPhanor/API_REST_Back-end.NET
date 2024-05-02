@@ -7,9 +7,9 @@ namespace P7CreateRestApi.Services
     public interface ICurvePointService
     {
         public List<CurvePointOutputModel> List();
-        public void Create(CurvePointInputModel inputModel);
-        public CurvePoint? Get(int id);
-        public void Update(int id, CurvePointInputModel inputModel);
-        public void Delete(int id);
+        public CurvePointOutputModel? Create(CurvePointInputModel inputModel);
+        public CurvePointOutputModel? Get(int id);
+        public CurvePointOutputModel? Update(int id, CurvePointInputModel inputModel);
+        public CurvePointOutputModel? Delete(int id);
     }
 }

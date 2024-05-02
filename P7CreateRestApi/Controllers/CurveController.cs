@@ -27,20 +27,25 @@ namespace Dot.Net.WebApi.Controllers
         [Route("Get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
-            return Ok(_curvePointService.Get(id));
+            var curvePoint = _curvePointService.Get(id);
+            if(curvePoint is not null)
+            {
+                return Ok(curvePoint);
+            }
+            return NotFound();
         }
 
         [HttpPost]
         [Route("add")]
-        public IActionResult AddCurvePoint([FromBody] CurvePointInputModel curvePoint)
+        public IActionResult AddCurvePoint([FromBody] CurvePointInputModel inputModel)
         {
-            _curvePointService.Create(curvePoint);
-            return Ok(curvePoint);
+            _curvePointService.Create(inputModel);
+            return Ok(inputModel);
         }
 
         [HttpPost]
         [Route("validate")]
-        public IActionResult Validate([FromBody] CurvePointInputModel curvePoint)
+        public IActionResult Validate([FromBody] CurvePointInputModel inputModel)
         {
             // TODO: check data valid and save to db, after saving return bid list
             return Ok();
@@ -56,18 +61,27 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateCurvePoint(int id, [FromBody] CurvePointInputModel curvePoint)
+        public IActionResult UpdateCurvePoint(int id, [FromBody] CurvePointInputModel inputModel)
         {
-            _curvePointService.Update(id, curvePoint);
-            return Ok(_curvePointService.List());
+            var curvePoint = _curvePointService.Update(id, inputModel);
+            if (curvePoint is not null)
+            {
+                return Ok(_curvePointService.List());
+            }
+            return NotFound();
+            
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult DeleteById(int id)
         {
-            _curvePointService.Delete(id);
-            return Ok(_curvePointService.List());
+            var curvePoint = _curvePointService.Delete(id);
+            if (curvePoint is not null)
+            {
+                return Ok(_curvePointService.List());
+            }
+            return NotFound();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace P7CreateRestApi.Repositories
         public List<CurvePoint> List();
         public void Create(CurvePoint curvePoint);
         public CurvePoint? Get(int id);
-        public void Update(CurvePoint curvePoint);
-        public void Delete(int id);
+        public CurvePoint? Update(CurvePoint curvePoint);
+        public CurvePoint? Delete(int id);
     }
 }

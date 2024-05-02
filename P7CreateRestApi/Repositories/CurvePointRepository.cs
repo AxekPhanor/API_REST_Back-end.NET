@@ -23,7 +23,7 @@ namespace P7CreateRestApi.Repositories
 
         public CurvePoint? Get(int id) => _dbContext.CurvePoints.FirstOrDefault(c => c.Id == id);
 
-        public void Update(CurvePoint curvePoint)
+        public CurvePoint? Update(CurvePoint curvePoint)
         {
             var curvePointAModifier = _dbContext.CurvePoints.FirstOrDefault(c => c.Id == curvePoint.Id);
             if(curvePointAModifier is not null)
@@ -32,17 +32,21 @@ namespace P7CreateRestApi.Repositories
                 curvePointAModifier.AsOfDate = curvePoint.AsOfDate;
                 curvePointAModifier.CurvePointValue = curvePoint.CurvePointValue;
                 _dbContext.SaveChanges();
+                return curvePointAModifier;
             }
+            return null;
         }
 
-        public void Delete(int id) 
+        public CurvePoint? Delete(int id) 
         {
             var curvePoint = _dbContext.CurvePoints.FirstOrDefault(c => c.Id == id);
             if(curvePoint is not null)
             {
                 _dbContext.CurvePoints.Remove(curvePoint);
                 _dbContext.SaveChanges();
+                return curvePoint;
             }
+            return null;
         }
     }
 }
