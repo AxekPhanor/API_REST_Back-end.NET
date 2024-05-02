@@ -1,5 +1,7 @@
 using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Models.InputModel;
+using P7CreateRestApi.Services;
 
 namespace Dot.Net.WebApi.Controllers
 {
@@ -7,25 +9,31 @@ namespace Dot.Net.WebApi.Controllers
     [Route("[controller]")]
     public class CurveController : ControllerBase
     {
-        // TODO: Inject Curve Point service
+        private readonly ICurvePointService _curvePointService;
+
+        public CurveController(ICurvePointService curvePointService)
+        {
+            _curvePointService = curvePointService;
+        }
 
         [HttpGet]
         [Route("list")]
         public IActionResult Home()
         {
-            return Ok();
+            return Ok(_curvePointService.List());
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("add")]
-        public IActionResult AddCurvePoint([FromBody]CurvePoint curvePoint)
+        public IActionResult AddCurvePoint([FromBody] CurvePointInputModel curvePoint)
         {
-            return Ok();
+            _curvePointService.Create(curvePoint);
+            return Ok(curvePoint);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("validate")]
-        public IActionResult Validate([FromBody]CurvePoint curvePoint)
+        public IActionResult Validate([FromBody] CurvePointInputModel curvePoint)
         {
             // TODO: check data valid and save to db, after saving return bid list
             return Ok();
@@ -41,18 +49,18 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateCurvePoint(int id, [FromBody] CurvePoint curvePoint)
+        public IActionResult UpdateCurvePoint(int id, [FromBody] CurvePointInputModel curvePoint)
         {
-            // TODO: check required fields, if valid call service to update Curve and return Curve list
-            return Ok();
+            _curvePointService.Update(id, curvePoint);
+            return Ok(_curvePointService.List());
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult DeleteBid(int id)
+        public IActionResult DeleteById(int id)
         {
-            // TODO: Find Curve by Id and delete the Curve, return to Curve list
-            return Ok();
+            _curvePointService.Delete(id);
+            return Ok(_curvePointService.List());
         }
     }
 }

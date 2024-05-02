@@ -1,5 +1,7 @@
 using Dot.Net.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
+using P7CreateRestApi.Repositories;
+using P7CreateRestApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -13,6 +15,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<LocalDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<ICurvePointRepository, CurvePointRepository>();
+builder.Services.AddScoped<ICurvePointService, CurvePointService>();
+
 
 var app = builder.Build();
 
