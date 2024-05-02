@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Models.InputModel;
+using P7CreateRestApi.Services;
 
 namespace Dot.Net.WebApi.Controllers
 {
@@ -6,21 +8,37 @@ namespace Dot.Net.WebApi.Controllers
     [Route("[controller]")]
     public class RuleNameController : ControllerBase
     {
-        // TODO: Inject RuleName service
+        private readonly IRuleNameService _ruleNameService;
+        public RuleNameController(IRuleNameService ruleNameService)
+        {
+            _ruleNameService = ruleNameService;
+        }
 
         [HttpGet]
         [Route("list")]
         public IActionResult Home()
         {
-            // TODO: find all RuleName, add to model
-            return Ok();
+            return Ok(_ruleNameService.List());
         }
 
         [HttpGet]
-        [Route("add")]
-        public IActionResult AddRuleName([FromBody]RuleName trade)
+        [Route("Get/{id}")]
+        public IActionResult Get([FromRoute] int id)
         {
-            return Ok();
+            var ruleName = _ruleNameService.Get(id);
+            if (ruleName is not null)
+            {
+                return Ok(ruleName);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public IActionResult AddRuleName([FromBody] RuleNameInputModel inputModel)
+        {
+            _ruleNameService.Create(inputModel);
+            return Ok(inputModel);
         }
 
         [HttpGet]
@@ -41,18 +59,26 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateRuleName(int id, [FromBody] RuleName rating)
+        public IActionResult UpdateRuleName(int id, [FromBody] RuleNameInputModel inputModel)
         {
-            // TODO: check required fields, if valid call service to update RuleName and return RuleName list
-            return Ok();
+            var ruleName = _ruleNameService.Update(id, inputModel);
+            if (ruleName is not null)
+            {
+                return Ok(_ruleNameService.List());
+            }
+            return NotFound();
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult DeleteRuleName(int id)
         {
-            // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-            return Ok();
+            var ruleName = _ruleNameService.Delete(id);
+            if (ruleName is not null)
+            {
+                return Ok(_ruleNameService.List());
+            }
+            return NotFound();
         }
     }
 }
