@@ -23,6 +23,13 @@ namespace Dot.Net.WebApi.Controllers
             return Ok(_curvePointService.List());
         }
 
+        [HttpGet]
+        [Route("Get/{id}")]
+        public IActionResult Get([FromRoute] int id)
+        {
+            return Ok(_curvePointService.Get(id));
+        }
+
         [HttpPost]
         [Route("add")]
         public IActionResult AddCurvePoint([FromBody] CurvePointInputModel curvePoint)
