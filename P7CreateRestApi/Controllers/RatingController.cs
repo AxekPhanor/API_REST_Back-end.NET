@@ -1,5 +1,7 @@
 using Dot.Net.WebApi.Controllers.Domain;
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Models.InputModel;
+using P7CreateRestApi.Services;
 
 namespace Dot.Net.WebApi.Controllers
 {
@@ -7,14 +9,37 @@ namespace Dot.Net.WebApi.Controllers
     [Route("[controller]")]
     public class RatingController : ControllerBase
     {
-        // TODO: Inject Rating service
+        private readonly IRatingService _ratingService;
+        public RatingController(IRatingService ratingService)
+        {
+            _ratingService = ratingService;
+        }
 
         [HttpGet]
         [Route("list")]
         public IActionResult Home()
         {
-            // TODO: find all Rating, add to model
-            return Ok();
+            return Ok(_ratingService.List());
+        }
+
+        [HttpGet]
+        [Route("Get/{id}")]
+        public IActionResult Get([FromRoute] int id)
+        {
+            var ratingService = _ratingService.Get(id);
+            if (ratingService is not null)
+            {
+                return Ok(ratingService);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public IActionResult AddRating([FromBody] RatingInputModel inputModel)
+        {
+            _ratingService.Create(inputModel);
+            return Ok(inputModel);
         }
 
         [HttpGet]
@@ -42,18 +67,26 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateRating(int id, [FromBody] Rating rating)
+        public IActionResult UpdateRating(int id, [FromBody] RatingInputModel inputModel)
         {
-            // TODO: check required fields, if valid call service to update Rating and return Rating list
-            return Ok();
+            var rating = _ratingService.Update(id, inputModel);
+            if (rating is not null)
+            {
+                return Ok(_ratingService.List());
+            }
+            return NotFound();
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult DeleteRating(int id)
         {
-            // TODO: Find Rating by Id and delete the Rating, return to Rating list
-            return Ok();
+            var rating = _ratingService.Delete(id);
+            if (rating is not null)
+            {
+                return Ok(_ratingService.List());
+            }
+            return NotFound();
         }
     }
 }
