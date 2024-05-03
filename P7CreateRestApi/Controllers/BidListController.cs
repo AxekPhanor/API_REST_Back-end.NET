@@ -1,5 +1,7 @@
 using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Models.InputModel;
+using P7CreateRestApi.Services;
 
 namespace Dot.Net.WebApi.Controllers
 {
@@ -7,6 +9,39 @@ namespace Dot.Net.WebApi.Controllers
     [Route("[controller]")]
     public class BidListController : ControllerBase
     {
+        private readonly IBidListService _bidListService;
+        public BidListController(IBidListService bidListService) 
+        { 
+            _bidListService = bidListService;
+        }
+
+        [HttpGet]
+        [Route("list")]
+        public IActionResult List()
+        {
+            return Ok(_bidListService.List());
+        }
+
+        [HttpGet]
+        [Route("get/{id}")]
+        public IActionResult Get([FromRoute] int id)
+        {
+            var bidList = _bidListService.Get(id);
+            if(bidList is not null)
+            {
+                return Ok(bidList);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public IActionResult AddBidList([FromBody] BidListInputModel inputModel)
+        {
+            _bidListService.Create(inputModel);
+            return Ok(inputModel);
+        }
+
         [HttpGet]
         [Route("validate")]
         public IActionResult Validate([FromBody] BidList bidList)
@@ -24,17 +59,26 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateBid(int id, [FromBody] BidList bidList)
+        public IActionResult UpdateById(int id, [FromBody] BidListInputModel inputModel)
         {
-            // TODO: check required fields, if valid call service to update Bid and return list Bid
-            return Ok();
+            var bidList = _bidListService.Update(id, inputModel);
+            if(bidList is not null)
+            {
+                return Ok(_bidListService.List());
+            }
+            return NotFound();
         }
 
         [HttpDelete]
-        [Route("{id}")]
-        public IActionResult DeleteBid(int id)
+        [Route("delete/{id}")]
+        public IActionResult DeleteById(int id)
         {
-            return Ok();
+            var bidList = _bidListService.Delete(id);
+            if (bidList is not null)
+            {
+                return Ok(_bidListService.List());
+            }
+            return NotFound();
         }
     }
 }
