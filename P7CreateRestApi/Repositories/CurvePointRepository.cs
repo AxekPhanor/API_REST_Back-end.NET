@@ -32,9 +32,8 @@ namespace P7CreateRestApi.Repositories
                 curvePointAModifier.AsOfDate = curvePoint.AsOfDate;
                 curvePointAModifier.CurvePointValue = curvePoint.CurvePointValue;
                 _dbContext.SaveChanges();
-                return curvePointAModifier;
             }
-            return null;
+            return curvePointAModifier;
         }
 
         public CurvePoint? Delete(int id) 
@@ -44,9 +43,8 @@ namespace P7CreateRestApi.Repositories
             {
                 _dbContext.CurvePoints.Remove(curvePoint);
                 _dbContext.SaveChanges();
-                return curvePoint;
             }
-            return null;
+            return curvePoint;
         }
     }
 }

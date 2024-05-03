@@ -24,9 +24,8 @@ namespace P7CreateRestApi.Repositories
             {
                 _dbContext.Trades.Remove(trade);
                 _dbContext.SaveChanges();
-                return trade;
             }
-            return null;
+            return trade;
         }
 
         public Trade? Get(int id) => _dbContext.Trades.FirstOrDefault(t => t.TradeId == id);
@@ -58,9 +57,8 @@ namespace P7CreateRestApi.Repositories
                 tradeAModifier.SourceListId = trade.SourceListId;
                 tradeAModifier.Side = trade.Side;
                 _dbContext.SaveChanges();
-                return tradeAModifier;
             }
-            return null;
+            return tradeAModifier;
         }
     }
 }

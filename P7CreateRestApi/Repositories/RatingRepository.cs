@@ -24,9 +24,8 @@ namespace P7CreateRestApi.Repositories
             {
                 _dbContext.Ratings.Remove(rating);
                 _dbContext.SaveChanges();
-                return rating;
             }
-            return null;
+            return rating;
         }
 
         public Rating? Get(int id) => _dbContext.Ratings.FirstOrDefault(r => r.Id == id);
@@ -43,9 +42,8 @@ namespace P7CreateRestApi.Repositories
                 ratingAModifier.FitchRating = rating.FitchRating;
                 ratingAModifier.OrderNumber = rating.OrderNumber;
                 _dbContext.SaveChanges();
-                return ratingAModifier;
             }
-            return null;
+            return ratingAModifier;
         }
     }
 }

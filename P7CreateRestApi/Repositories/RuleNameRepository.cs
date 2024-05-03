@@ -24,9 +24,8 @@ namespace P7CreateRestApi.Repositories
             {
                 _dbContext.Rules.Remove(ruleName);
                 _dbContext.SaveChanges();
-                return ruleName;
             }
-            return null;
+            return ruleName;
         }
 
         public RuleName? Get(int id) => _dbContext.Rules.FirstOrDefault(r => r.Id == id);
@@ -45,9 +44,8 @@ namespace P7CreateRestApi.Repositories
                 ruleNameAModifier.SqlStr = ruleName.SqlStr;
                 ruleNameAModifier.SqlPart = ruleName.SqlPart;
                 _dbContext.SaveChanges();
-                return ruleNameAModifier;
             }
-            return null;
+            return ruleNameAModifier;
         }
     }
 }
