@@ -1,5 +1,7 @@
 using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Models.InputModel;
+using P7CreateRestApi.Services;
 
 namespace Dot.Net.WebApi.Controllers
 {
@@ -7,21 +9,37 @@ namespace Dot.Net.WebApi.Controllers
     [Route("[controller]")]
     public class TradeController : ControllerBase
     {
-        // TODO: Inject Trade service
+        private readonly ITradeService _tradeService;
+        public TradeController(ITradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
 
         [HttpGet]
         [Route("list")]
         public IActionResult Home()
         {
-            // TODO: find all Trade, add to model
-            return Ok();
+            return Ok(_tradeService.List());
         }
 
         [HttpGet]
-        [Route("add")]
-        public IActionResult AddTrade([FromBody]Trade trade)
+        [Route("Get/{id}")]
+        public IActionResult Get([FromRoute] int id)
         {
-            return Ok();
+            var trade = _tradeService.Get(id);
+            if (trade is not null)
+            {
+                return Ok(trade);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public IActionResult AddTrade([FromBody] TradeInputModel inputModel)
+        {
+            _tradeService.Create(inputModel);
+            return Ok(inputModel);
         }
 
         [HttpGet]
@@ -42,18 +60,26 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateTrade(int id, [FromBody] Trade trade)
+        public IActionResult UpdateTrade(int id, [FromBody] TradeInputModel inputModel)
         {
-            // TODO: check required fields, if valid call service to update Trade and return Trade list
-            return Ok();
+            var trade = _tradeService.Update(id, inputModel);
+            if (trade is not null)
+            {
+                return Ok(_tradeService.List());
+            }
+            return NotFound();
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult DeleteTrade(int id)
         {
-            // TODO: Find Trade by Id and delete the Trade, return to Trade list
-            return Ok();
+            var trade = _tradeService.Delete(id);
+            if (trade is not null)
+            {
+                return Ok(_tradeService.List());
+            }
+            return NotFound();
         }
     }
 }
