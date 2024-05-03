@@ -23,7 +23,7 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("Get/{id}")]
+        [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
             var trade = _tradeService.Get(id);
@@ -60,7 +60,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateTrade(int id, [FromBody] TradeInputModel inputModel)
+        public IActionResult UpdateById([FromRoute] int id, [FromBody] TradeInputModel inputModel)
         {
             var trade = _tradeService.Update(id, inputModel);
             if (trade is not null)
@@ -71,8 +71,8 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
-        public IActionResult DeleteTrade(int id)
+        [Route("delete/{id}")]
+        public IActionResult DeleteTrade([FromRoute] int id)
         {
             var trade = _tradeService.Delete(id);
             if (trade is not null)

@@ -59,7 +59,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateById(int id, [FromBody] BidListInputModel inputModel)
+        public IActionResult UpdateById([FromRoute] int id, [FromBody] BidListInputModel inputModel)
         {
             var bidList = _bidListService.Update(id, inputModel);
             if(bidList is not null)
@@ -71,7 +71,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
-        public IActionResult DeleteById(int id)
+        public IActionResult DeleteById([FromRoute] int id)
         {
             var bidList = _bidListService.Delete(id);
             if (bidList is not null)

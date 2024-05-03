@@ -22,7 +22,7 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("Get/{id}")]
+        [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
             var ruleName = _ruleNameService.Get(id);
@@ -59,7 +59,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateRuleName(int id, [FromBody] RuleNameInputModel inputModel)
+        public IActionResult UpdateById([FromRoute] int id, [FromBody] RuleNameInputModel inputModel)
         {
             var ruleName = _ruleNameService.Update(id, inputModel);
             if (ruleName is not null)
@@ -70,8 +70,8 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
-        public IActionResult DeleteRuleName(int id)
+        [Route("delete/{id}")]
+        public IActionResult DeleteRuleName([FromRoute] int id)
         {
             var ruleName = _ruleNameService.Delete(id);
             if (ruleName is not null)

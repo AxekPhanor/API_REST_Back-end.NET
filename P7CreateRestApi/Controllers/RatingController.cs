@@ -23,7 +23,7 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("Get/{id}")]
+        [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
             var ratingService = _ratingService.Get(id);
@@ -67,7 +67,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateRating(int id, [FromBody] RatingInputModel inputModel)
+        public IActionResult UpdateById([FromRoute] int id, [FromBody] RatingInputModel inputModel)
         {
             var rating = _ratingService.Update(id, inputModel);
             if (rating is not null)
@@ -78,8 +78,8 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
-        public IActionResult DeleteRating(int id)
+        [Route("delete/{id}")]
+        public IActionResult DeleteRating([FromRoute] int id)
         {
             var rating = _ratingService.Delete(id);
             if (rating is not null)

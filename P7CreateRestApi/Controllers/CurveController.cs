@@ -24,7 +24,7 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("Get/{id}")]
+        [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
             var curvePoint = _curvePointService.Get(id);
@@ -61,7 +61,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
-        public IActionResult UpdateCurvePoint(int id, [FromBody] CurvePointInputModel inputModel)
+        public IActionResult UpdateById([FromRoute] int id, [FromBody] CurvePointInputModel inputModel)
         {
             var curvePoint = _curvePointService.Update(id, inputModel);
             if (curvePoint is not null)
@@ -73,7 +73,7 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("delete/{id}")]
         public IActionResult DeleteById(int id)
         {
             var curvePoint = _curvePointService.Delete(id);
