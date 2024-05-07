@@ -1,11 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace Dot.Net.WebApi.Domain
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Fullname { get; set; }
+        public string FullName { get; set; }
         public string Role { get; set; }
     }
 }
