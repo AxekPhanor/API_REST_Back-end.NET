@@ -1,6 +1,5 @@
 ﻿using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using P7CreateRestApi.Models.InputModels;
 using P7CreateRestApi.Models.OutputModels;
 using P7CreateRestApi.Repositories;
