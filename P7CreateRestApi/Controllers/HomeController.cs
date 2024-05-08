@@ -13,7 +13,7 @@ namespace Dot.Net.WebApi.Controllers
         [Authorize(policy: "User")]
         public IActionResult Get()
         {
-            return Ok(Request.Headers["Authorization"]);
+            return Ok();
         }
 
         [HttpGet]
