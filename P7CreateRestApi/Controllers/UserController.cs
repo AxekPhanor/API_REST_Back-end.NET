@@ -28,7 +28,7 @@ namespace Dot.Net.WebApi.Controllers
         public async Task<IActionResult> AddUser([FromBody] UserInputModel inputModel)
         {
             var user = await _userService.Create(inputModel);
-            if(user is not null)
+            if (user is not null)
             {
                 return Ok(user);
             }
@@ -69,8 +69,8 @@ namespace Dot.Net.WebApi.Controllers
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserInputModel inputModel)
         {
             // TODO: check required fields, if valid call service to update Trade and return Trade list
-            var user  = await _userService.Update(id, inputModel);
-            if( user is not null)
+            var user = await _userService.Update(id, inputModel);
+            if (user is not null)
             {
                 return Ok(await _userService.List());
             }
