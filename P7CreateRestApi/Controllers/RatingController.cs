@@ -10,26 +10,46 @@ namespace Dot.Net.WebApi.Controllers
     public class RatingController : ControllerBase
     {
         private readonly IRatingService _ratingService;
-        public RatingController(IRatingService ratingService)
+        private readonly ILogger<RatingController> _logger;
+        public RatingController(IRatingService ratingService, ILogger<RatingController> logger)
         {
             _ratingService = ratingService;
+            _logger = logger;
         }
 
         [HttpGet]
         [Route("list")]
         public IActionResult Home()
         {
-            return Ok(_ratingService.List());
+            _logger.LogInformation("Récupération de la liste des 'Rating'");
+            try
+            {
+                return Ok(_ratingService.List());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération des listes 'Rating'");
+                return StatusCode(500, "Une erreur interne s'est produite");
+            }
         }
 
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
-            var ratingService = _ratingService.Get(id);
-            if (ratingService is not null)
+            _logger.LogInformation("Récupération de la 'Rating' avec l'id : {id}", id);
+            try
             {
-                return Ok(ratingService);
+                var ratingService = _ratingService.Get(id);
+                if (ratingService is not null)
+                {
+                    return Ok(ratingService);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la récupération de la 'Rating' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
         }
@@ -38,8 +58,17 @@ namespace Dot.Net.WebApi.Controllers
         [Route("add")]
         public IActionResult AddRating([FromBody] RatingInputModel inputModel)
         {
-            _ratingService.Create(inputModel);
-            return Ok(inputModel);
+            _logger.LogInformation("Ajout d'une nouvelle 'Rating'");
+            try
+            {
+                _ratingService.Create(inputModel);
+                return Ok(inputModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de l'ajout d'une nouvelle 'Rating'");
+                return StatusCode(500, "Une erreur interne s'est produite");
+            }
         }
 
         [HttpGet]
@@ -69,10 +98,19 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] RatingInputModel inputModel)
         {
-            var rating = _ratingService.Update(id, inputModel);
-            if (rating is not null)
+            _logger.LogInformation("Mise à jour de la 'Rating' avec l'id : {id}", id);
+            try
             {
-                return Ok(_ratingService.List());
+                var rating = _ratingService.Update(id, inputModel);
+                if (rating is not null)
+                {
+                    return Ok(_ratingService.List());
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la mise à jour de la 'Rating' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
         }
@@ -81,10 +119,19 @@ namespace Dot.Net.WebApi.Controllers
         [Route("delete/{id}")]
         public IActionResult DeleteRating([FromRoute] int id)
         {
-            var rating = _ratingService.Delete(id);
-            if (rating is not null)
+            _logger.LogInformation("Suppression de la 'Rating' avec l'id : {id}", id);
+            try
             {
-                return Ok(_ratingService.List());
+                var rating = _ratingService.Delete(id);
+                if (rating is not null)
+                {
+                    return Ok(_ratingService.List());
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la suppression de la 'Rating' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
         }

@@ -102,6 +102,12 @@ builder.Services.AddScoped<IBidListService, BidListService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Logging.ClearProviders();
+    builder.Logging.AddConsole();
+}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -9,26 +9,46 @@ namespace Dot.Net.WebApi.Controllers
     public class RuleNameController : ControllerBase
     {
         private readonly IRuleNameService _ruleNameService;
-        public RuleNameController(IRuleNameService ruleNameService)
+        private readonly ILogger<RuleNameController> _logger;
+        public RuleNameController(IRuleNameService ruleNameService, ILogger<RuleNameController> logger)
         {
             _ruleNameService = ruleNameService;
+            _logger = logger;
         }
 
         [HttpGet]
         [Route("list")]
         public IActionResult Home()
         {
-            return Ok(_ruleNameService.List());
+            _logger.LogInformation("Récupération de la liste des 'RuleName'");
+            try
+            {
+                return Ok(_ruleNameService.List());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération des listes 'RuleName'");
+                return StatusCode(500, "Une erreur interne s'est produite");
+            }
         }
 
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
-            var ruleName = _ruleNameService.Get(id);
-            if (ruleName is not null)
+            _logger.LogInformation("Récupération de la 'RuleName' avec l'id : {id}", id);
+            try
             {
-                return Ok(ruleName);
+                var ruleName = _ruleNameService.Get(id);
+                if (ruleName is not null)
+                {
+                    return Ok(ruleName);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la récupération de la 'RuleName' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
         }
@@ -37,8 +57,17 @@ namespace Dot.Net.WebApi.Controllers
         [Route("add")]
         public IActionResult AddRuleName([FromBody] RuleNameInputModel inputModel)
         {
-            _ruleNameService.Create(inputModel);
-            return Ok(inputModel);
+            _logger.LogInformation("Ajout d'une nouvelle 'RuleName'");
+            try
+            {
+                _ruleNameService.Create(inputModel);
+                return Ok(inputModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de l'ajout d'une nouvelle 'RuleName'");
+                return StatusCode(500, "Une erreur interne s'est produite");
+            }
         }
 
         [HttpGet]
@@ -61,10 +90,19 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] RuleNameInputModel inputModel)
         {
-            var ruleName = _ruleNameService.Update(id, inputModel);
-            if (ruleName is not null)
+            _logger.LogInformation("Mise à jour de la 'RuleName' avec l'id : {id}", id);
+            try
             {
-                return Ok(_ruleNameService.List());
+                var ruleName = _ruleNameService.Update(id, inputModel);
+                if (ruleName is not null)
+                {
+                    return Ok(_ruleNameService.List());
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la mise à jour de la 'RuleName' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
         }
@@ -73,10 +111,19 @@ namespace Dot.Net.WebApi.Controllers
         [Route("delete/{id}")]
         public IActionResult DeleteRuleName([FromRoute] int id)
         {
-            var ruleName = _ruleNameService.Delete(id);
-            if (ruleName is not null)
+            _logger.LogInformation("Suppression de la 'RuleName' avec l'id : {id}", id);
+            try
             {
-                return Ok(_ruleNameService.List());
+                var ruleName = _ruleNameService.Delete(id);
+                if (ruleName is not null)
+                {
+                    return Ok(_ruleNameService.List());
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la suppression de la 'RuleName' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
         }
