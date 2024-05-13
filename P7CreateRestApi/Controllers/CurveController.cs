@@ -72,14 +72,6 @@ namespace Dot.Net.WebApi.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("validate")]
-        public IActionResult Validate([FromBody] CurvePointInputModel inputModel)
-        {
-            // TODO: check data valid and save to db, after saving return bid list
-            return Ok();
-        }
-
         [HttpGet]
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)

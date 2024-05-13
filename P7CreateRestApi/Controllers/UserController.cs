@@ -55,23 +55,6 @@ namespace Dot.Net.WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpPost]
-        [Route("validate")]
-        public async Task<IActionResult> Validate([FromBody] UserInputModel inputModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var user = await _userService.Create(inputModel);
-            if (user is not null)
-            {
-                return Ok(user);
-            }
-            return NotFound();
-        }
-
         [HttpGet]
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)

@@ -71,14 +71,6 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("validate")]
-        public IActionResult Validate([FromBody]RuleName trade)
-        {
-            // TODO: check data valid and save to db, after saving return RuleName list
-            return Ok();
-        }
-
-        [HttpGet]
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
