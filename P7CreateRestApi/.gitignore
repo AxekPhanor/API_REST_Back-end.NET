@@ -21,3 +21,5 @@ yarn-error.log*
 
 /bin/**
 /obj/**
+../P7CreateRestApi.Tests/bin/**
+../P7CreateRestApi.Tests/obj/**
