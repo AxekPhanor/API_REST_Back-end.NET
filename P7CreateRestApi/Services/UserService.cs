@@ -29,8 +29,9 @@ namespace P7CreateRestApi.Services
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, user.Role);
+                return ToOutputModel(user);
             }
-            return ToOutputModel(user);
+            return null;
         }
 
         public async Task<UserOutputModel?> Delete(int id)
