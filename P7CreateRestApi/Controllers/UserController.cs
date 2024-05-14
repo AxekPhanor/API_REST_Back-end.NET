@@ -113,7 +113,16 @@ namespace Dot.Net.WebApi.Controllers
         [Route("/secure/article-details")]
         public async Task<ActionResult<List<User>>> GetAllUserArticles()
         {
-            return Ok();
+            _logger.LogInformation("Récupération de la liste des utilisateurs");
+            try
+            {
+                return Ok(await _userService.List());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération des listes des utilisateurs");
+                return StatusCode(500, "Une erreur interne s'est produite");
+            }
         }
     }
 }
