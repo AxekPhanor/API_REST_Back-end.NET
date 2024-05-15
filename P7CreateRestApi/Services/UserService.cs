@@ -1,7 +1,7 @@
 ﻿using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Identity;
-using P7CreateRestApi.Models.InputModels;
-using P7CreateRestApi.Models.OutputModels;
+using P7CreateRestApi.Models.InputModel;
+using P7CreateRestApi.Models.OutputModel;
 using P7CreateRestApi.Repositories;
 
 namespace P7CreateRestApi.Services
