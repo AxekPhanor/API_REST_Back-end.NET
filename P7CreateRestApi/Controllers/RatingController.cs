@@ -103,7 +103,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] RatingInputModel inputModel)
         {
-            _logger.LogInformation("Mise à jour de la 'Rating' avec l'id : {id}", id);
+            _logger.LogInformation("Mise à jour de 'Rating' avec l'id : {id}", id);
             try
             {
                 var rating = _ratingService.Update(id, inputModel);
@@ -114,7 +114,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la mise à jour de la 'Rating' avec l'id : {id}", id);
+                _logger.LogError(0, ex, "Erreur lors de la mise à jour de 'Rating' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -124,7 +124,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("delete/{id}")]
         public IActionResult DeleteRating([FromRoute] int id)
         {
-            _logger.LogInformation("Suppression de la 'Rating' avec l'id : {id}", id);
+            _logger.LogInformation("Suppression de 'Rating' avec l'id : {id}", id);
             try
             {
                 var rating = _ratingService.Delete(id);
@@ -135,7 +135,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la suppression de la 'Rating' avec l'id : {id}", id);
+                _logger.LogError(0, ex, "Erreur lors de la suppression de 'Rating' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();

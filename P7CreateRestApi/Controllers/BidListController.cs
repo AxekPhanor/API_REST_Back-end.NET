@@ -37,7 +37,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
-            _logger.LogInformation("Récupération de la 'BidList' avec l'id : {id}", id);
+            _logger.LogInformation("Récupération de 'BidList' avec l'id : {id}", id);
             try
             {
                 var bidList = _bidListService.Get(id);
@@ -48,7 +48,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la récupération de la 'BidList avec l'id : {id}'", id);
+                _logger.LogError(0, ex, "Erreur lors de la récupération de 'BidList avec l'id : {id}'", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -97,7 +97,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] BidListInputModel inputModel)
         {
-            _logger.LogInformation("Mise à jour de la 'BidList' avec l'id : {id}", id);
+            _logger.LogInformation("Mise à jour de 'BidList' avec l'id : {id}", id);
             try
             {
                 var bidList = _bidListService.Update(id, inputModel);
@@ -108,7 +108,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la mise à jour de la 'BidList avec l'id : {id}'", id);
+                _logger.LogError(0, ex, "Erreur lors de la mise à jour de 'BidList avec l'id : {id}'", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -118,7 +118,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("delete/{id}")]
         public IActionResult DeleteById([FromRoute] int id)
         {
-            _logger.LogInformation("Suppression de la 'BidList' avec l'id : {id}", id);
+            _logger.LogInformation("Suppression de 'BidList' avec l'id : {id}", id);
             try
             {
                 var bidList = _bidListService.Delete(id);
@@ -129,7 +129,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la suppression de la 'BidList avec l'id : {id}'", id);
+                _logger.LogError(0, ex, "Erreur lors de la suppression de 'BidList avec l'id : {id}'", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
