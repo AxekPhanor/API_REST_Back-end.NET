@@ -99,6 +99,7 @@
 
             // Assert
             Assert.NotNull(outputModel);
+            Assert.Equal(tradeExcepted.TradeId, outputModel.TradeId);
             Assert.Equal(tradeExcepted.Account, outputModel.Account);
             Assert.Equal(tradeExcepted.AccountType, outputModel.AccountType);
             Assert.Equal(tradeExcepted.BuyQuantity, outputModel.BuyQuantity);
@@ -170,6 +171,25 @@
             // Assert
             Assert.NotNull(outputModel);
             Assert.Equal(tradeExcepted.TradeId, outputModel.TradeId);
+            Assert.Equal(tradeExcepted.Account, outputModel.Account);
+            Assert.Equal(tradeExcepted.AccountType, outputModel.AccountType);
+            Assert.Equal(tradeExcepted.BuyQuantity, outputModel.BuyQuantity);
+            Assert.Equal(tradeExcepted.SellQuantity, outputModel.SellQuantity);
+            Assert.Equal(tradeExcepted.BuyPrice, outputModel.BuyPrice);
+            Assert.Equal(tradeExcepted.SellPrice, outputModel.SellPrice);
+            Assert.Equal(tradeExcepted.Benchmark, outputModel.Benchmark);
+            Assert.Equal(tradeExcepted.TradeDate, outputModel.TradeDate);
+            Assert.Equal(tradeExcepted.TradeSecurity, outputModel.TradeSecurity);
+            Assert.Equal(tradeExcepted.TradeStatus, outputModel.TradeStatus);
+            Assert.Equal(tradeExcepted.Trader, outputModel.Trader);
+            Assert.Equal(tradeExcepted.Book, outputModel.Book);
+            Assert.Equal(tradeExcepted.CreationName, outputModel.CreationName);
+            Assert.Equal(tradeExcepted.RevisionName, outputModel.RevisionName);
+            Assert.Equal(tradeExcepted.RevisionDate, outputModel.RevisionDate);
+            Assert.Equal(tradeExcepted.DealName, outputModel.DealName);
+            Assert.Equal(tradeExcepted.DealType, outputModel.DealType);
+            Assert.Equal(tradeExcepted.SourceListId, outputModel.SourceListId);
+            Assert.Equal(tradeExcepted.Side, outputModel.Side);
             _tradeRepositoryMock.Verify(m => m.Get(1), Times.Once);
         }
 
@@ -222,6 +242,26 @@
             // Assert
             Assert.NotNull(list);
             Assert.Single(list);
+            Assert.Equal(tradeExcepted.TradeId, list[0].TradeId);
+            Assert.Equal(tradeExcepted.Account, list[0].Account);
+            Assert.Equal(tradeExcepted.AccountType, list[0].AccountType);
+            Assert.Equal(tradeExcepted.BuyQuantity, list[0].BuyQuantity);
+            Assert.Equal(tradeExcepted.SellQuantity, list[0].SellQuantity);
+            Assert.Equal(tradeExcepted.BuyPrice, list[0].BuyPrice);
+            Assert.Equal(tradeExcepted.SellPrice, list[0].SellPrice);
+            Assert.Equal(tradeExcepted.Benchmark, list[0].Benchmark);
+            Assert.Equal(tradeExcepted.TradeDate, list[0].TradeDate);
+            Assert.Equal(tradeExcepted.TradeSecurity, list[0].TradeSecurity);
+            Assert.Equal(tradeExcepted.TradeStatus, list[0].TradeStatus);
+            Assert.Equal(tradeExcepted.Trader, list[0].Trader);
+            Assert.Equal(tradeExcepted.Book, list[0].Book);
+            Assert.Equal(tradeExcepted.CreationName, list[0].CreationName);
+            Assert.Equal(tradeExcepted.RevisionName, list[0].RevisionName);
+            Assert.Equal(tradeExcepted.RevisionDate, list[0].RevisionDate);
+            Assert.Equal(tradeExcepted.DealName, list[0].DealName);
+            Assert.Equal(tradeExcepted.DealType, list[0].DealType);
+            Assert.Equal(tradeExcepted.SourceListId, list[0].SourceListId);
+            Assert.Equal(tradeExcepted.Side, list[0].Side);
             _tradeRepositoryMock.Verify(m => m.List(), Times.Once);
         }
 

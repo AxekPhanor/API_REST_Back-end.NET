@@ -88,6 +88,8 @@
             // Assert
             Assert.NotNull(outputModel);
             Assert.Equal(curvePointExcepted.CurveId, outputModel.CurveId);
+            Assert.Equal(curvePointExcepted.AsOfDate, outputModel.AsOfDate);
+            Assert.Equal(curvePointExcepted.CurvePointValue, outputModel.CurvePointValue);
             _curvePointRepositoryMock.Verify(m => m.Get(1), Times.Once);
         }
 
@@ -123,7 +125,9 @@
             // Assert
             Assert.NotEmpty(list);
             Assert.Single(list);
-            Assert.Equal(curvePointExcepted.CurveId, list.First().CurveId);
+            Assert.Equal(curvePointExcepted.CurveId, list[0].CurveId);
+            Assert.Equal(curvePointExcepted.AsOfDate, list[0].AsOfDate);
+            Assert.Equal(curvePointExcepted.CurvePointValue, list[0].CurvePointValue);
             _curvePointRepositoryMock.Verify(m => m.List(), Times.Once);
         }
 
@@ -145,7 +149,7 @@
         public void UpdateCurvePoint_ShouldHaveUpdateCurvePoint()
         {
             // Arrange
-            var CurvePointExcepted = new CurvePoint()
+            var curvePointExcepted = new CurvePoint()
             {
                 CurveId = 1,
                 AsOfDate = new DateTime(2024, 1, 1),
@@ -157,16 +161,16 @@
                 AsOfDate = new DateTime(2024, 1, 1),
                 CurvePointValue = 1.1
             };
-            _curvePointRepositoryMock.Setup(m => m.Update(It.IsAny<CurvePoint>())).Returns(CurvePointExcepted);
+            _curvePointRepositoryMock.Setup(m => m.Update(It.IsAny<CurvePoint>())).Returns(curvePointExcepted);
 
             // Act
             var outputModel = _curvePointService.Update(1, inputModel);
 
             // Assert
             Assert.NotNull(outputModel);
-            Assert.Equal(inputModel.CurveId, outputModel.CurveId);
-            Assert.Equal(inputModel.AsOfDate, outputModel.AsOfDate);
-            Assert.Equal(inputModel.CurvePointValue, outputModel.CurvePointValue);
+            Assert.Equal(curvePointExcepted.CurveId, outputModel.CurveId);
+            Assert.Equal(curvePointExcepted.AsOfDate, outputModel.AsOfDate);
+            Assert.Equal(curvePointExcepted.CurvePointValue, outputModel.CurvePointValue);
             _curvePointRepositoryMock.Verify(m => m.Update(It.IsAny<CurvePoint>()), Times.Once);
         }
 

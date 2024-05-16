@@ -13,7 +13,6 @@ namespace P7CreateRestApi.Tests
         public void CreateBidList_ShouldHaveBidListOutputModel()
         {
             // Arrange
-            _bidListRepositoryMock.Setup(m => m.Create(new BidList()));
             var inputModel = new BidListInputModel()
             {
                 Account = "Account",
@@ -37,6 +36,7 @@ namespace P7CreateRestApi.Tests
                 SourceListId = "1",
                 Trader = "Trader"
             };
+            _bidListRepositoryMock.Setup(m => m.Create(It.IsAny<BidList>()));
 
             // Act
             var outputModel = _bidListService.Create(inputModel);
@@ -70,7 +70,7 @@ namespace P7CreateRestApi.Tests
         public void DeleteBidList_ShouldHaveBidListOutputModel()
         {
             // Arrange
-            var bidList = new BidList()
+            var bidListExcepted = new BidList()
             {
                 BidListId = 1,
                 Account = "Account",
@@ -94,13 +94,34 @@ namespace P7CreateRestApi.Tests
                 SourceListId = "1",
                 Trader = "Trader"
             };
-            _bidListRepositoryMock.Setup(m => m.Delete(1)).Returns(bidList);
+            _bidListRepositoryMock.Setup(m => m.Delete(1)).Returns(bidListExcepted);
 
             // Act
             var outputModel = _bidListService.Delete(1);
 
             // Assert
             Assert.NotNull(outputModel);
+            Assert.Equal(bidListExcepted.BidListId, outputModel.BidListId);
+            Assert.Equal(bidListExcepted.Account, outputModel.Account);
+            Assert.Equal(bidListExcepted.Ask, outputModel.Ask);
+            Assert.Equal(bidListExcepted.AskQuantity, outputModel.AskQuantity);
+            Assert.Equal(bidListExcepted.Benchmark, outputModel.Benchmark);
+            Assert.Equal(bidListExcepted.Bid, outputModel.Bid);
+            Assert.Equal(bidListExcepted.BidListDate, outputModel.BidListDate);
+            Assert.Equal(bidListExcepted.BidQuantity, outputModel.BidQuantity);
+            Assert.Equal(bidListExcepted.BidSecurity, outputModel.BidSecurity);
+            Assert.Equal(bidListExcepted.BidStatus, outputModel.BidStatus);
+            Assert.Equal(bidListExcepted.BidType, outputModel.BidType);
+            Assert.Equal(bidListExcepted.Book, outputModel.Book);
+            Assert.Equal(bidListExcepted.Commentary, outputModel.Commentary);
+            Assert.Equal(bidListExcepted.CreationName, outputModel.CreationName);
+            Assert.Equal(bidListExcepted.DealName, outputModel.DealName);
+            Assert.Equal(bidListExcepted.DealType, outputModel.DealType);
+            Assert.Equal(bidListExcepted.RevisionDate, outputModel.RevisionDate);
+            Assert.Equal(bidListExcepted.RevisionName, outputModel.RevisionName);
+            Assert.Equal(bidListExcepted.Side, outputModel.Side);
+            Assert.Equal(bidListExcepted.SourceListId, outputModel.SourceListId);
+            Assert.Equal(bidListExcepted.Trader, outputModel.Trader);
             _bidListRepositoryMock.Verify(repo => repo.Delete(1), Times.Once);
         }
 
@@ -153,7 +174,27 @@ namespace P7CreateRestApi.Tests
 
             // Assert
             Assert.NotNull(outputModel);
-            Assert.Equal(1, bidListExcepted.BidListId);
+            Assert.Equal(bidListExcepted.BidListId, outputModel.BidListId);
+            Assert.Equal(bidListExcepted.Account, outputModel.Account);
+            Assert.Equal(bidListExcepted.Ask, outputModel.Ask);
+            Assert.Equal(bidListExcepted.AskQuantity, outputModel.AskQuantity);
+            Assert.Equal(bidListExcepted.Benchmark, outputModel.Benchmark);
+            Assert.Equal(bidListExcepted.Bid, outputModel.Bid);
+            Assert.Equal(bidListExcepted.BidListDate, outputModel.BidListDate);
+            Assert.Equal(bidListExcepted.BidQuantity, outputModel.BidQuantity);
+            Assert.Equal(bidListExcepted.BidSecurity, outputModel.BidSecurity);
+            Assert.Equal(bidListExcepted.BidStatus, outputModel.BidStatus);
+            Assert.Equal(bidListExcepted.BidType, outputModel.BidType);
+            Assert.Equal(bidListExcepted.Book, outputModel.Book);
+            Assert.Equal(bidListExcepted.Commentary, outputModel.Commentary);
+            Assert.Equal(bidListExcepted.CreationName, outputModel.CreationName);
+            Assert.Equal(bidListExcepted.DealName, outputModel.DealName);
+            Assert.Equal(bidListExcepted.DealType, outputModel.DealType);
+            Assert.Equal(bidListExcepted.RevisionDate, outputModel.RevisionDate);
+            Assert.Equal(bidListExcepted.RevisionName, outputModel.RevisionName);
+            Assert.Equal(bidListExcepted.Side, outputModel.Side);
+            Assert.Equal(bidListExcepted.SourceListId, outputModel.SourceListId);
+            Assert.Equal(bidListExcepted.Trader, outputModel.Trader);
             _bidListRepositoryMock.Verify(repo => repo.Get(1), Times.Once);
         }
 
@@ -207,7 +248,27 @@ namespace P7CreateRestApi.Tests
             // Assert
             Assert.NotNull(list);
             Assert.Single(list);
-            Assert.Equal(bidListExcepted.BidListId, list.First().BidListId);
+            Assert.Equal(bidListExcepted.BidListId, list[0].BidListId);
+            Assert.Equal(bidListExcepted.Account, list[0].Account);
+            Assert.Equal(bidListExcepted.Ask, list[0].Ask);
+            Assert.Equal(bidListExcepted.AskQuantity, list[0].AskQuantity);
+            Assert.Equal(bidListExcepted.Benchmark, list[0].Benchmark);
+            Assert.Equal(bidListExcepted.Bid, list[0].Bid);
+            Assert.Equal(bidListExcepted.BidListDate, list[0].BidListDate);
+            Assert.Equal(bidListExcepted.BidQuantity, list[0].BidQuantity);
+            Assert.Equal(bidListExcepted.BidSecurity, list[0].BidSecurity);
+            Assert.Equal(bidListExcepted.BidStatus, list[0].BidStatus);
+            Assert.Equal(bidListExcepted.BidType, list[0].BidType);
+            Assert.Equal(bidListExcepted.Book, list[0].Book);
+            Assert.Equal(bidListExcepted.Commentary, list[0].Commentary);
+            Assert.Equal(bidListExcepted.CreationName, list[0].CreationName);
+            Assert.Equal(bidListExcepted.DealName, list[0].DealName);
+            Assert.Equal(bidListExcepted.DealType, list[0].DealType);
+            Assert.Equal(bidListExcepted.RevisionDate, list[0].RevisionDate);
+            Assert.Equal(bidListExcepted.RevisionName, list[0].RevisionName);
+            Assert.Equal(bidListExcepted.Side, list[0].Side);
+            Assert.Equal(bidListExcepted.SourceListId, list[0].SourceListId);
+            Assert.Equal(bidListExcepted.Trader, list[0].Trader);
             _bidListRepositoryMock.Verify(repo => repo.List(), Times.Once);
         }
 
@@ -284,8 +345,27 @@ namespace P7CreateRestApi.Tests
 
             // Assert
             Assert.NotNull(outputModel);
-            Assert.Equal(1, outputModel.BidListId);
-            Assert.Equal(inputModel.Account, outputModel.Account);
+            Assert.Equal(bidListExpected.BidListId, outputModel.BidListId);
+            Assert.Equal(bidListExpected.Account, outputModel.Account);
+            Assert.Equal(bidListExpected.Ask, outputModel.Ask);
+            Assert.Equal(bidListExpected.AskQuantity, outputModel.AskQuantity);
+            Assert.Equal(bidListExpected.Benchmark, outputModel.Benchmark);
+            Assert.Equal(bidListExpected.Bid, outputModel.Bid);
+            Assert.Equal(bidListExpected.BidListDate, outputModel.BidListDate);
+            Assert.Equal(bidListExpected.BidQuantity, outputModel.BidQuantity);
+            Assert.Equal(bidListExpected.BidSecurity, outputModel.BidSecurity);
+            Assert.Equal(bidListExpected.BidStatus, outputModel.BidStatus);
+            Assert.Equal(bidListExpected.BidType, outputModel.BidType);
+            Assert.Equal(bidListExpected.Book, outputModel.Book);
+            Assert.Equal(bidListExpected.Commentary, outputModel.Commentary);
+            Assert.Equal(bidListExpected.CreationName, outputModel.CreationName);
+            Assert.Equal(bidListExpected.DealName, outputModel.DealName);
+            Assert.Equal(bidListExpected.DealType, outputModel.DealType);
+            Assert.Equal(bidListExpected.RevisionDate, outputModel.RevisionDate);
+            Assert.Equal(bidListExpected.RevisionName, outputModel.RevisionName);
+            Assert.Equal(bidListExpected.Side, outputModel.Side);
+            Assert.Equal(bidListExpected.SourceListId, outputModel.SourceListId);
+            Assert.Equal(bidListExpected.Trader, outputModel.Trader);
             _bidListRepositoryMock.Verify(repo => repo.Update(It.IsAny<BidList>()), Times.Once);
         }
 
@@ -296,7 +376,7 @@ namespace P7CreateRestApi.Tests
             _bidListRepositoryMock.Setup(repo => repo.Update(It.IsAny<BidList>()));
 
             // Act
-            var outputModel = _bidListService.Update(1, new BidListInputModel()
+            var outputModel = _bidListService.Update(1, new BidListInputModel
             {
                 Account = "AccountUpdated",
                 Ask = 1,

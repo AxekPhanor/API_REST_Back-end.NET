@@ -20,7 +20,7 @@
                 FitchRating = "A+",
                 OrderNumber = 1
             };
-            _ratingRepositoryMock.Setup(m => m.Create(new Rating()));
+            _ratingRepositoryMock.Setup(m => m.Create(It.IsAny<Rating>()));
 
             // Act
             var outputModel = _ratingService.Create(inputModel);
@@ -140,11 +140,11 @@
 
             // Assert
             Assert.NotNull(outputModel);
-            Assert.Equal(1, outputModel.Id);
-            Assert.Equal(inputModel.MoodysRating, outputModel.MoodysRating);
-            Assert.Equal(inputModel.SandPRating, outputModel.SandPRating);
-            Assert.Equal(inputModel.FitchRating, outputModel.FitchRating);
-            Assert.Equal(inputModel.OrderNumber, outputModel.OrderNumber);
+            Assert.Equal(ratingExcepted.Id, outputModel.Id);
+            Assert.Equal(ratingExcepted.MoodysRating, outputModel.MoodysRating);
+            Assert.Equal(ratingExcepted.SandPRating, outputModel.SandPRating);
+            Assert.Equal(ratingExcepted.FitchRating, outputModel.FitchRating);
+            Assert.Equal(ratingExcepted.OrderNumber, outputModel.OrderNumber);
             _ratingRepositoryMock.Verify(m => m.Update(It.IsAny<Rating>()), Times.Once);
         }
 
@@ -155,7 +155,7 @@
             _ratingRepositoryMock.Setup(m => m.Update(It.IsAny<Rating>()));
 
             // Act
-            var outputModel = _ratingService.Update(1, new RatingInputModel()
+            var outputModel = _ratingService.Update(1, new RatingInputModel
             {
                 MoodysRating = "A1",
                 SandPRating = "A+",
@@ -188,6 +188,11 @@
             // Assert
             Assert.NotNull(list);
             Assert.Single(list);
+            Assert.Equal(ratingExcepted.Id, list[0].Id);
+            Assert.Equal(ratingExcepted.MoodysRating, list[0].MoodysRating);
+            Assert.Equal(ratingExcepted.SandPRating, list[0].SandPRating);
+            Assert.Equal(ratingExcepted.FitchRating, list[0].FitchRating);
+            Assert.Equal(ratingExcepted.OrderNumber, list[0].OrderNumber);
             _ratingRepositoryMock.Verify(m => m.List(), Times.Once);
         }
 

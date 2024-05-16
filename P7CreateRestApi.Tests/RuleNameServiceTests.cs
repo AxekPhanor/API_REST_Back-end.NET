@@ -105,6 +105,7 @@
 
             // Assert
             Assert.NotNull(outputModel);
+            Assert.Equal(ruleNameExcepted.Id, outputModel.Id);
             Assert.Equal(ruleNameExcepted.Name, outputModel.Name);
             Assert.Equal(ruleNameExcepted.Description, outputModel.Description);
             Assert.Equal(ruleNameExcepted.Json, outputModel.Json);
@@ -150,6 +151,13 @@
             // Assert
             Assert.NotNull(list);
             Assert.Single(list);
+            Assert.Equal(ruleNameExcepted.Id, list[0].Id);
+            Assert.Equal(ruleNameExcepted.Name, list[0].Name);
+            Assert.Equal(ruleNameExcepted.Description, list[0].Description);
+            Assert.Equal(ruleNameExcepted.Json, list[0].Json);
+            Assert.Equal(ruleNameExcepted.Template, list[0].Template);
+            Assert.Equal(ruleNameExcepted.SqlStr, list[0].SqlStr);
+            Assert.Equal(ruleNameExcepted.SqlPart, list[0].SqlPart);
             _ruleNameRepositoryMock.Verify(m => m.List(), Times.Once);
         }
 
