@@ -121,6 +121,7 @@ namespace P7CreateRestApi.Services
             Benchmark = trade.Benchmark,
             Book = trade.Book,
             CreationName = trade.CreationName,
+            CreationDate = trade.CreationDate,
             RevisionName = trade.RevisionName,
             RevisionDate = trade.RevisionDate,
             DealName = trade.DealName,

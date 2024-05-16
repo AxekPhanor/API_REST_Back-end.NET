@@ -85,6 +85,7 @@
                 Trader = "Trader",
                 Book = "Book",
                 CreationName = "CreationName",
+                CreationDate = new DateTime(2024, 1, 1),
                 RevisionName = "RevisionName",
                 RevisionDate = new DateTime(2024, 1, 1),
                 DealName = "DealName",
@@ -113,6 +114,7 @@
             Assert.Equal(tradeExcepted.Trader, outputModel.Trader);
             Assert.Equal(tradeExcepted.Book, outputModel.Book);
             Assert.Equal(tradeExcepted.CreationName, outputModel.CreationName);
+            Assert.Equal(tradeExcepted.CreationDate, outputModel.CreationDate);
             Assert.Equal(tradeExcepted.RevisionName, outputModel.RevisionName);
             Assert.Equal(tradeExcepted.RevisionDate, outputModel.RevisionDate);
             Assert.Equal(tradeExcepted.DealName, outputModel.DealName);
@@ -156,6 +158,7 @@
                 Trader = "Trader",
                 Book = "Book",
                 CreationName = "CreationName",
+                CreationDate = new DateTime(2024, 1, 1),
                 RevisionName = "RevisionName",
                 RevisionDate = new DateTime(2024, 1, 1),
                 DealName = "DealName",
@@ -184,6 +187,7 @@
             Assert.Equal(tradeExcepted.Trader, outputModel.Trader);
             Assert.Equal(tradeExcepted.Book, outputModel.Book);
             Assert.Equal(tradeExcepted.CreationName, outputModel.CreationName);
+            Assert.Equal(tradeExcepted.CreationDate, outputModel.CreationDate);
             Assert.Equal(tradeExcepted.RevisionName, outputModel.RevisionName);
             Assert.Equal(tradeExcepted.RevisionDate, outputModel.RevisionDate);
             Assert.Equal(tradeExcepted.DealName, outputModel.DealName);
@@ -227,6 +231,7 @@
                 Trader = "Trader",
                 Book = "Book",
                 CreationName = "CreationName",
+                CreationDate = new DateTime(2024, 1, 1),
                 RevisionName = "RevisionName",
                 RevisionDate = new DateTime(2024, 1, 1),
                 DealName = "DealName",
@@ -256,6 +261,7 @@
             Assert.Equal(tradeExcepted.Trader, list[0].Trader);
             Assert.Equal(tradeExcepted.Book, list[0].Book);
             Assert.Equal(tradeExcepted.CreationName, list[0].CreationName);
+            Assert.Equal(tradeExcepted.CreationDate, list[0].CreationDate);
             Assert.Equal(tradeExcepted.RevisionName, list[0].RevisionName);
             Assert.Equal(tradeExcepted.RevisionDate, list[0].RevisionDate);
             Assert.Equal(tradeExcepted.DealName, list[0].DealName);
@@ -300,6 +306,7 @@
                 Trader = "Trader",
                 Book = "Book",
                 CreationName = "CreationName",
+                CreationDate = new DateTime(2024, 1, 1),
                 RevisionName = "RevisionName",
                 RevisionDate = new DateTime(2024, 1, 1),
                 DealName = "DealName",
@@ -349,6 +356,7 @@
             Assert.Equal(inputModel.Trader, outputModel.Trader);
             Assert.Equal(inputModel.Book, outputModel.Book);
             Assert.Equal(inputModel.CreationName, outputModel.CreationName);
+            Assert.Equal(tradeExcepted.CreationDate, outputModel.CreationDate);
             Assert.Equal(inputModel.RevisionName, outputModel.RevisionName);
             Assert.Equal(inputModel.RevisionDate, outputModel.RevisionDate);
             Assert.Equal(inputModel.DealName, outputModel.DealName);
