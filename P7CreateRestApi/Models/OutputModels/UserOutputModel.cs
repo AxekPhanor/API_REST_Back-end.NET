@@ -1,4 +1,4 @@
-﻿namespace P7CreateRestApi.Models.OutputModels
+﻿namespace P7CreateRestApi.Models.OutputModel
 {
     public class UserOutputModel
     {

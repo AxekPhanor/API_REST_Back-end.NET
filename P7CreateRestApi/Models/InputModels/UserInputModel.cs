@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace P7CreateRestApi.Models.InputModels
+namespace P7CreateRestApi.Models.InputModel
 {
     public class UserInputModel
     {

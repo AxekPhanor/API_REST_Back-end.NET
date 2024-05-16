@@ -5,3 +5,11 @@
 /.vs
 /P7CreateRestApi/.vs
 /P7CreateRestApi/appsettings.Development.json
+/P7CreateRestApi.Tests/obj/Debug/net6.0/P7CreateRestApi.Tests.AssemblyInfoInputs.cache
+/P7CreateRestApi.Tests/obj/Debug/net6.0/P7CreateRestApi.Tests.assets.cache
+/P7CreateRestApi.Tests/obj/Debug/net6.0/P7CreateRestApi.Tests.csproj.AssemblyReference.cache
+/P7CreateRestApi.Tests/obj/P7CreateRestApi.Tests.csproj.nuget.dgspec.json
+/P7CreateRestApi.Tests/obj/P7CreateRestApi.Tests.csproj.nuget.g.props
+/P7CreateRestApi.Tests/obj/project.assets.json
+/P7CreateRestApi.Tests/obj/project.nuget.cache
+/P7CreateRestApi.Tests/obj/Debug/net6.0/P7CreateRestApi.Tests.AssemblyInfo.cs

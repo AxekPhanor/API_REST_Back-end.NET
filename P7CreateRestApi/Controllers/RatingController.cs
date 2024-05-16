@@ -1,4 +1,4 @@
-using Dot.Net.WebApi.Controllers.Domain;
+using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;

@@ -1,4 +1,4 @@
-namespace Dot.Net.WebApi.Controllers
+namespace Dot.Net.WebApi.Domain
 {
     public class RuleName
     {
