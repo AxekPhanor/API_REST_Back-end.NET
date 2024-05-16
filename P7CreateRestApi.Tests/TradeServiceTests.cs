@@ -343,26 +343,26 @@
 
             // Assert
             Assert.NotNull(outputModel);
-            Assert.Equal(inputModel.Account, outputModel.Account);
-            Assert.Equal(inputModel.AccountType, outputModel.AccountType);
-            Assert.Equal(inputModel.BuyQuantity, outputModel.BuyQuantity);
-            Assert.Equal(inputModel.SellQuantity, outputModel.SellQuantity);
-            Assert.Equal(inputModel.BuyPrice, outputModel.BuyPrice);
-            Assert.Equal(inputModel.SellPrice, outputModel.SellPrice);
-            Assert.Equal(inputModel.Benchmark, outputModel.Benchmark);
-            Assert.Equal(inputModel.TradeDate, outputModel.TradeDate);
-            Assert.Equal(inputModel.TradeSecurity, outputModel.TradeSecurity);
-            Assert.Equal(inputModel.TradeStatus, outputModel.TradeStatus);
-            Assert.Equal(inputModel.Trader, outputModel.Trader);
-            Assert.Equal(inputModel.Book, outputModel.Book);
-            Assert.Equal(inputModel.CreationName, outputModel.CreationName);
+            Assert.Equal(tradeExcepted.Account, outputModel.Account);
+            Assert.Equal(tradeExcepted.AccountType, outputModel.AccountType);
+            Assert.Equal(tradeExcepted.BuyQuantity, outputModel.BuyQuantity);
+            Assert.Equal(tradeExcepted.SellQuantity, outputModel.SellQuantity);
+            Assert.Equal(tradeExcepted.BuyPrice, outputModel.BuyPrice);
+            Assert.Equal(tradeExcepted.SellPrice, outputModel.SellPrice);
+            Assert.Equal(tradeExcepted.Benchmark, outputModel.Benchmark);
+            Assert.Equal(tradeExcepted.TradeDate, outputModel.TradeDate);
+            Assert.Equal(tradeExcepted.TradeSecurity, outputModel.TradeSecurity);
+            Assert.Equal(tradeExcepted.TradeStatus, outputModel.TradeStatus);
+            Assert.Equal(tradeExcepted.Trader, outputModel.Trader);
+            Assert.Equal(tradeExcepted.Book, outputModel.Book);
+            Assert.Equal(tradeExcepted.CreationName, outputModel.CreationName);
             Assert.Equal(tradeExcepted.CreationDate, outputModel.CreationDate);
-            Assert.Equal(inputModel.RevisionName, outputModel.RevisionName);
-            Assert.Equal(inputModel.RevisionDate, outputModel.RevisionDate);
-            Assert.Equal(inputModel.DealName, outputModel.DealName);
-            Assert.Equal(inputModel.DealType, outputModel.DealType);
-            Assert.Equal(inputModel.SourceListId, outputModel.SourceListId);
-            Assert.Equal(inputModel.Side, outputModel.Side);
+            Assert.Equal(tradeExcepted.RevisionName, outputModel.RevisionName);
+            Assert.Equal(tradeExcepted.RevisionDate, outputModel.RevisionDate);
+            Assert.Equal(tradeExcepted.DealName, outputModel.DealName);
+            Assert.Equal(tradeExcepted.DealType, outputModel.DealType);
+            Assert.Equal(tradeExcepted.SourceListId, outputModel.SourceListId);
+            Assert.Equal(tradeExcepted.Side, outputModel.Side);
             _tradeRepositoryMock.Verify(m => m.Update(It.IsAny<Trade>()), Times.Once);
         }
 
