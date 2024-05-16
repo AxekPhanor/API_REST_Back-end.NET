@@ -75,8 +75,21 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            // TODO: get Trade by Id and to model then show to the form
-            return Ok();
+            _logger.LogInformation("Récupération sur la route 'update/id' de 'Trade' avec l'id : {id}", id);
+            try
+            {
+                var ruleName = _tradeService.Get(id);
+                if (ruleName is not null)
+                {
+                    return Ok(ruleName);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la récupération de 'Trade' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
+            }
+            return NotFound();
         }
 
         [HttpPost]

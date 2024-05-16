@@ -76,8 +76,21 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            // TODO: get CurvePoint by Id and to model then show to the form
-            return Ok();
+            _logger.LogInformation("Récupération sur la route 'update/id' de 'Curve' avec l'id : {id}", id);
+            try
+            {
+                var curvePoint = _curvePointService.Get(id);
+                if (curvePoint is not null)
+                {
+                    return Ok(curvePoint);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la récupération de 'Curve' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
+            }
+            return NotFound();
         }
 
         [HttpPost]

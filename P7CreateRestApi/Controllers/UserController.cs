@@ -59,12 +59,21 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            var user = _userService.Get(id);
-            
-            if (user == null)
-                throw new ArgumentException("Invalid user Id:" + id);
-
-            return Ok();
+            _logger.LogInformation("Récupération sur la route 'update/id' de 'User' avec l'id : {id}", id);
+            try
+            {
+                var user = _userService.Get(id);
+                if (user is not null)
+                {
+                    return Ok(user);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la récupération de 'User' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
+            }
+            return NotFound();
         }
 
         [HttpPost]

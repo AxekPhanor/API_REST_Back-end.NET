@@ -75,7 +75,22 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            return Ok();
+            _logger.LogInformation("Récupération sur la route 'update/id' de 'BidList' avec l'id : {id}", id);
+
+            try
+            {
+                var bidList = _bidListService.Get(id);
+                if (bidList is not null)
+                {
+                    return Ok(bidList);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la récupération de 'BidList' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
+            }
+            return NotFound();
         }
 
         [HttpPost]

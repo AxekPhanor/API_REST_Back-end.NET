@@ -82,8 +82,21 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            // TODO: get Rating by Id and to model then show to the form
-            return Ok();
+            _logger.LogInformation("Récupération sur la route 'update/id' de 'Rating' avec l'id : {id}", id);
+            try
+            {
+                var rating = _ratingService.Get(id);
+                if (rating is not null)
+                {
+                    return Ok(rating);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, "Erreur lors de la récupération de 'Rating' avec l'id : {id}", id);
+                return StatusCode(500, "Une erreur interne s'est produite");
+            }
+            return NotFound();
         }
 
         [HttpPost]
