@@ -2,6 +2,7 @@ using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
+using Serilog;
 
 namespace Dot.Net.WebApi.Controllers
 {
@@ -10,25 +11,23 @@ namespace Dot.Net.WebApi.Controllers
     public class RatingController : ControllerBase
     {
         private readonly IRatingService _ratingService;
-        private readonly ILogger<RatingController> _logger;
-        public RatingController(IRatingService ratingService, ILogger<RatingController> logger)
+        public RatingController(IRatingService ratingService)
         {
             _ratingService = ratingService;
-            _logger = logger;
         }
 
         [HttpGet]
         [Route("list")]
         public IActionResult Home()
         {
-            _logger.LogInformation("Récupération de la liste des 'Rating'");
+            Log.Information("Récupération de la liste des 'Rating'");
             try
             {
                 return Ok(_ratingService.List());
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erreur lors de la récupération des listes 'Rating'");
+                Log.Error(ex, "Erreur lors de la récupération des listes 'Rating'");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
         }
@@ -37,7 +36,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
-            _logger.LogInformation("Récupération de la 'Rating' avec l'id : {id}", id);
+            Log.Information("Récupération de 'Rating' avec l'id : {id}", id);
             try
             {
                 var ratingService = _ratingService.Get(id);
@@ -48,7 +47,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la récupération de la 'Rating' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la récupération de 'Rating' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -58,7 +57,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("add")]
         public IActionResult AddRating([FromBody] RatingInputModel inputModel)
         {
-            _logger.LogInformation("Ajout d'une nouvelle 'Rating'");
+            Log.Information("Ajout d'un 'Rating'");
             try
             {
                 _ratingService.Create(inputModel);
@@ -66,7 +65,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erreur lors de l'ajout d'une nouvelle 'Rating'");
+                Log.Error(ex, "Erreur lors de l'ajout d'un 'Rating'");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
         }
@@ -82,7 +81,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            _logger.LogInformation("Récupération sur la route 'update/id' de 'Rating' avec l'id : {id}", id);
+            Log.Information("Récupération sur la route 'update/id' de 'Rating' avec l'id : {id}", id);
             try
             {
                 var rating = _ratingService.Get(id);
@@ -93,7 +92,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la récupération de 'Rating' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la récupération de 'Rating' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -103,7 +102,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] RatingInputModel inputModel)
         {
-            _logger.LogInformation("Mise à jour de 'Rating' avec l'id : {id}", id);
+            Log.Information("Mise à jour de 'Rating' avec l'id : {id}", id);
             try
             {
                 var rating = _ratingService.Update(id, inputModel);
@@ -114,7 +113,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la mise à jour de 'Rating' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la mise à jour de 'Rating' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -124,7 +123,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("delete/{id}")]
         public IActionResult DeleteRating([FromRoute] int id)
         {
-            _logger.LogInformation("Suppression de 'Rating' avec l'id : {id}", id);
+            Log.Information("Suppression de 'Rating' avec l'id : {id}", id);
             try
             {
                 var rating = _ratingService.Delete(id);
@@ -135,7 +134,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la suppression de 'Rating' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la suppression de 'Rating' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();

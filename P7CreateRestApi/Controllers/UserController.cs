@@ -2,6 +2,7 @@ using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
+using Serilog;
 
 namespace Dot.Net.WebApi.Controllers
 {
@@ -10,26 +11,24 @@ namespace Dot.Net.WebApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserService userRepository, ILogger<UserController> logger)
+        public UserController(IUserService userRepository)
         {
             _userService = userRepository;
-            _logger = logger;
         }
 
         [HttpGet]
         [Route("list")]
         public async Task<IActionResult> Home()
         {
-            _logger.LogInformation("Récupération de la liste des 'User'");
+            Log.Information("Récupération de la liste des 'User'");
             try
             {
                 return Ok(await _userService.List());
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erreur lors de la récupération des listes 'User'");
+                Log.Error(ex, "Erreur lors de la récupération des listes 'User'");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
         }
@@ -38,7 +37,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("add")]
         public async Task<IActionResult> AddUser([FromBody] UserInputModel inputModel)
         {
-            _logger.LogInformation("Ajout d'un nouvel utilisateur");
+            Log.Information("Ajout d'un utilisateur");
             try
             {
                 var user = await _userService.Create(inputModel);
@@ -49,7 +48,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de l'ajout d'un nouvel utilisateur");
+                Log.Error(ex, "Erreur lors de l'ajout d'un utilisateur");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return BadRequest();
@@ -59,7 +58,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            _logger.LogInformation("Récupération sur la route 'update/id' de 'User' avec l'id : {id}", id);
+            Log.Information("Récupération sur la route 'update/id' de 'User' avec l'id : {id}", id);
             try
             {
                 var user = _userService.Get(id);
@@ -70,7 +69,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la récupération de 'User' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la récupération de 'User' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -80,7 +79,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserInputModel inputModel)
         {
-            _logger.LogInformation("Mise à jour de l'utilisateur avec l'id : {id}", id);
+            Log.Information("Mise à jour de l'utilisateur avec l'id : {id}", id);
             try
             {
                 var user = await _userService.Update(id, inputModel);
@@ -91,7 +90,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la mise à jour de l'utilisateur avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la mise à jour de l'utilisateur avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -101,7 +100,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            _logger.LogInformation("Suppression de l'utilisateur avec l'id : {id}", id);
+            Log.Information("Suppression de l'utilisateur avec l'id : {id}", id);
             try
             {
                 var user = await _userService.Delete(id);
@@ -112,7 +111,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la suppression de l'utilisateur avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la suppression de l'utilisateur avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -122,14 +121,14 @@ namespace Dot.Net.WebApi.Controllers
         [Route("/secure/article-details")]
         public async Task<ActionResult<List<User>>> GetAllUserArticles()
         {
-            _logger.LogInformation("Récupération de la liste des utilisateurs");
+            Log.Information("Récupération de la liste des utilisateurs");
             try
             {
                 return Ok(await _userService.List());
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erreur lors de la récupération des listes des utilisateurs");
+                Log.Error(ex, "Erreur lors de la récupération des listes des utilisateurs");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
         }

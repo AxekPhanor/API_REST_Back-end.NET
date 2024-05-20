@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using P7CreateRestApi.Repositories;
 using P7CreateRestApi.Services;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -102,11 +103,10 @@ builder.Services.AddScoped<IBidListService, BidListService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-if (builder.Environment.IsDevelopment())
-{
-    builder.Logging.ClearProviders();
-    builder.Logging.AddConsole();
-}
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true)
+    .CreateLogger();
 
 var app = builder.Build();
 

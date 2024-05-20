@@ -2,6 +2,7 @@ using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
+using Serilog;
 
 namespace Dot.Net.WebApi.Controllers
 {
@@ -10,25 +11,23 @@ namespace Dot.Net.WebApi.Controllers
     public class TradeController : ControllerBase
     {
         private readonly ITradeService _tradeService;
-        private readonly ILogger<TradeController> _logger;
-        public TradeController(ITradeService tradeService, ILogger<TradeController> logger)
+        public TradeController(ITradeService tradeService)
         {
             _tradeService = tradeService;
-            _logger = logger;
         }
 
         [HttpGet]
         [Route("list")]
         public IActionResult Home()
         {
-            _logger.LogInformation("Récupération de la liste des 'Trade'");
+            Log.Information("Récupération de la liste des 'Trade'");
             try
             {
                 return Ok(_tradeService.List());
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erreur lors de la récupération des listes 'Trade'");
+                Log.Error(ex, "Erreur lors de la récupération des listes 'Trade'");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
         }
@@ -37,7 +36,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
-            _logger.LogInformation("Récupération de 'Trade' avec l'id : {id}", id);
+            Log.Information("Récupération de 'Trade' avec l'id : {id}", id);
             try
             {
                 var trade = _tradeService.Get(id);
@@ -48,7 +47,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la récupération de 'Trade' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la récupération de 'Trade' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -58,7 +57,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("add")]
         public IActionResult AddTrade([FromBody] TradeInputModel inputModel)
         {
-            _logger.LogInformation("Ajout d'une nouvelle 'Trade'");
+            Log.Information("Ajout d'un 'Trade'");
             try
             {
                 _tradeService.Create(inputModel);
@@ -66,7 +65,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erreur lors de l'ajout d'une nouvelle 'Trade'");
+                Log.Error(ex, "Erreur lors de l'ajout d'un 'Trade'");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
         }
@@ -75,7 +74,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            _logger.LogInformation("Récupération sur la route 'update/id' de 'Trade' avec l'id : {id}", id);
+            Log.Information("Récupération sur la route 'update/id' de 'Trade' avec l'id : {id}", id);
             try
             {
                 var ruleName = _tradeService.Get(id);
@@ -86,7 +85,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la récupération de 'Trade' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la récupération de 'Trade' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -96,7 +95,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] TradeInputModel inputModel)
         {
-            _logger.LogInformation("Mise à jour de 'Trade' avec l'id : {id}", id);
+            Log.Information("Mise à jour de 'Trade' avec l'id : {id}", id);
             try
             {
                 var trade = _tradeService.Update(id, inputModel);
@@ -107,7 +106,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la mise à jour de 'Trade' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la mise à jour de 'Trade' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -117,7 +116,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("delete/{id}")]
         public IActionResult DeleteTrade([FromRoute] int id)
         {
-            _logger.LogInformation("Suppression de 'Trade' avec l'id : {id}", id);
+            Log.Information("Suppression de 'Trade' avec l'id : {id}", id);
             try
             {
                 var trade = _tradeService.Delete(id);
@@ -128,7 +127,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la suppression de 'Trade' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la suppression de 'Trade' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using P7CreateRestApi.Models.InputModels;
+using Serilog;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,12 +17,10 @@ namespace Dot.Net.WebApi.Controllers
     {   
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _config;
-        private readonly ILogger<AuthController> _logger;
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config, ILogger<AuthController> logger)
+        public AuthController(UserManager<User> userManager, IConfiguration config)
         {
             _userManager = userManager;
             _config = config;
-            _logger = logger;
         }
 
         [HttpPost]
@@ -29,7 +28,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginInputModel inputModel)
         {
-            _logger.LogInformation("Authentification de l'utilisateur {UserName}", inputModel.UserName);
+            Log.Information("Authentification de l'utilisateur {UserName}", inputModel.UserName);
             try
             {
                 var user = await _userManager.FindByNameAsync(inputModel.UserName);
@@ -58,7 +57,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de l'authentification de l'utilisateur {UserName}", inputModel.UserName);
+                Log.Error(ex, "Erreur lors de l'authentification de l'utilisateur {UserName}", inputModel.UserName);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return Unauthorized();

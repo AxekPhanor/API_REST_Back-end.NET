@@ -2,6 +2,7 @@ using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
+using Serilog;
 
 namespace Dot.Net.WebApi.Controllers
 {
@@ -10,26 +11,24 @@ namespace Dot.Net.WebApi.Controllers
     public class CurveController : ControllerBase
     {
         private readonly ICurvePointService _curvePointService;
-        private readonly ILogger<CurveController> _logger;
 
-        public CurveController(ICurvePointService curvePointService, ILogger<CurveController> logger)
+        public CurveController(ICurvePointService curvePointService)
         {
             _curvePointService = curvePointService;
-            _logger = logger;
         }
 
         [HttpGet]
         [Route("list")]
         public IActionResult Home()
         {
-            _logger.LogInformation("Récupération de la liste des 'Curve'");
+            Log.Information("Récupération de la liste des 'Curve'");
             try
             {
                 return Ok(_curvePointService.List());
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération de la liste des 'Curve'");
+                Log.Error(ex, "Une erreur s'est produite lors de la récupération de la liste des 'Curve'");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
         }
@@ -38,7 +37,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
-            _logger.LogInformation("Récupération de 'Curve' avec l'id : {id}", id);
+            Log.Information("Récupération de 'Curve' avec l'id : {id}", id);
             try
             {
                 var curvePoint = _curvePointService.Get(id);
@@ -49,7 +48,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la récupération de 'Curve' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la récupération de 'Curve' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -59,7 +58,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("add")]
         public IActionResult AddCurvePoint([FromBody] CurvePointInputModel inputModel)
         {
-            _logger.LogInformation("Ajout d'une nouvelle 'Curve'");
+            Log.Information("Ajout d'une 'Curve'");
             try
             {
                 _curvePointService.Create(inputModel);
@@ -67,7 +66,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout d'une nouvelle 'Curve'");
+                Log.Error(ex, "Une erreur s'est produite lors de l'ajout d'une 'Curve'");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
         }
@@ -76,7 +75,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            _logger.LogInformation("Récupération sur la route 'update/id' de 'Curve' avec l'id : {id}", id);
+            Log.Information("Récupération sur la route 'update/id' de 'Curve' avec l'id : {id}", id);
             try
             {
                 var curvePoint = _curvePointService.Get(id);
@@ -87,7 +86,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la récupération de 'Curve' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la récupération de 'Curve' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -97,7 +96,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] CurvePointInputModel inputModel)
         {
-            _logger.LogInformation("Mise à jour de 'Curve' avec l'id : {id}", id);
+            Log.Information("Mise à jour de 'Curve' avec l'id : {id}", id);
             try
             {
                 var curvePoint = _curvePointService.Update(id, inputModel);
@@ -108,7 +107,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la mise à jour de 'Curve' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la mise à jour de 'Curve' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -119,7 +118,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("delete/{id}")]
         public IActionResult DeleteById(int id)
         {
-            _logger.LogInformation("Suppression de 'Curve' avec l'id : {id}", id);
+            Log.Information("Suppression de 'Curve' avec l'id : {id}", id);
             try
             {
                 var curvePoint = _curvePointService.Delete(id);
@@ -130,7 +129,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la suppression de 'Curve' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la suppression de 'Curve' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();

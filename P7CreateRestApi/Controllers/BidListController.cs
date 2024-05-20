@@ -2,6 +2,7 @@ using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
+using Serilog;
 
 namespace Dot.Net.WebApi.Controllers
 {
@@ -10,11 +11,9 @@ namespace Dot.Net.WebApi.Controllers
     public class BidListController : ControllerBase
     {
         private readonly IBidListService _bidListService;
-        private readonly ILogger<BidListController> _logger;
-        public BidListController(IBidListService bidListService, ILogger<BidListController> logger) 
+        public BidListController(IBidListService bidListService) 
         { 
             _bidListService = bidListService;
-            _logger = logger;
         }
 
         [HttpGet]
@@ -23,12 +22,12 @@ namespace Dot.Net.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation("Récupération de la liste des 'BidList'");
+                Log.Information("Récupération de la liste des 'BidList'");
                 return Ok(_bidListService.List());
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération de la liste des 'BidList'");
+                Log.Error(ex, "Une erreur s'est produite lors de la récupération de la liste des 'BidList'");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
         }
@@ -37,7 +36,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("get/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
-            _logger.LogInformation("Récupération de 'BidList' avec l'id : {id}", id);
+            Log.Information("Récupération de 'BidList' avec l'id : {id}", id);
             try
             {
                 var bidList = _bidListService.Get(id);
@@ -48,7 +47,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la récupération de 'BidList avec l'id : {id}'", id);
+                Log.Error(ex, "Erreur lors de la récupération de 'BidList avec l'id : {id}'", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -58,7 +57,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("add")]
         public IActionResult AddBidList([FromBody] BidListInputModel inputModel)
         {
-            _logger.LogInformation("Ajout d'une nouvelle 'BidList'");
+            Log.Information("Ajout d'une 'BidList'");
             try
             {
                 _bidListService.Create(inputModel);
@@ -66,7 +65,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de l'ajout d'une nouvelle 'BidList'");
+                Log.Error(ex, "Erreur lors de l'ajout d'une 'BidList'");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
         }
@@ -75,7 +74,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            _logger.LogInformation("Récupération sur la route 'update/id' de 'BidList' avec l'id : {id}", id);
+            Log.Information("Récupération sur la route 'update/id' de 'BidList' avec l'id : {id}", id);
 
             try
             {
@@ -87,7 +86,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la récupération de 'BidList' avec l'id : {id}", id);
+                Log.Error(ex, "Erreur lors de la récupération de 'BidList' avec l'id : {id}", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -97,7 +96,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("update/{id}")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] BidListInputModel inputModel)
         {
-            _logger.LogInformation("Mise à jour de 'BidList' avec l'id : {id}", id);
+            Log.Information("Mise à jour de 'BidList' avec l'id : {id}", id);
             try
             {
                 var bidList = _bidListService.Update(id, inputModel);
@@ -108,7 +107,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la mise à jour de 'BidList avec l'id : {id}'", id);
+                Log.Error(ex, "Erreur lors de la mise à jour de 'BidList avec l'id : {id}'", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
@@ -118,7 +117,7 @@ namespace Dot.Net.WebApi.Controllers
         [Route("delete/{id}")]
         public IActionResult DeleteById([FromRoute] int id)
         {
-            _logger.LogInformation("Suppression de 'BidList' avec l'id : {id}", id);
+            Log.Information("Suppression de 'BidList' avec l'id : {id}", id);
             try
             {
                 var bidList = _bidListService.Delete(id);
@@ -129,7 +128,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(0, ex, "Erreur lors de la suppression de 'BidList avec l'id : {id}'", id);
+                Log.Error(ex, "Erreur lors de la suppression de 'BidList avec l'id : {id}'", id);
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
             return NotFound();
