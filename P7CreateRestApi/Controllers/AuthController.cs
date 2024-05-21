@@ -41,8 +41,8 @@ namespace Dot.Net.WebApi.Controllers
                     {
                         Subject = new ClaimsIdentity(new Claim[]
                         {
-                        new Claim(ClaimTypes.Name, user.UserName),
-                        new Claim(ClaimTypes.Role, user.Role)
+                        new (ClaimTypes.Name, user.UserName),
+                        new (ClaimTypes.Role, user.Role)
                         }),
                         Expires = DateTime.UtcNow.AddHours(1),
                         Audience = _config["Jwt:Audience"],

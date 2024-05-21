@@ -1,4 +1,3 @@
-using Dot.Net.WebApi.Domain;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
@@ -68,13 +67,6 @@ namespace Dot.Net.WebApi.Controllers
                 Log.Error(ex, "Erreur lors de l'ajout d'un 'Rating'");
                 return StatusCode(500, "Une erreur interne s'est produite");
             }
-        }
-
-        [HttpGet]
-        [Route("add")]
-        public IActionResult AddRatingForm([FromBody]Rating rating)
-        {
-            return Ok();
         }
 
         [HttpGet]
