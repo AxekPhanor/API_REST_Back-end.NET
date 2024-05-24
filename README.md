@@ -1,38 +1,38 @@
-# DotNetFrançaisP7
-Dépôt de l’étudiant pour le projet 7 du parcours Développeur back-end.NET
-
-La création d'une base de données avec l’approche Code-first d’Entity Framework est nécessaire à la réalisation de ce projet. 
-
-Créez les entités comme indiqué dans le document PDF associé aux informations du projet 7. Utilisez ensuite Entity Framework Code-First pour créer la base de données ainsi que toutes les tables nécessaires. 
-
-Pour créer correctement la base de données, vous devez satisfaire aux prérequis ci-dessous et modifier les chaînes de connexion pour qu'elles pointent vers le serveur MSSQL fonctionnant sur votre PC local.
-
-**Prérequis** : MSSQL Developer 2019 ou Express 2019 a été installé ainsi que Microsoft SQL Server Management Studio (SSMS).
-
-MSSQL : https://www.microsoft.com/fr-fr/sql-server/sql-server-downloads
-
-SSMS : https://docs.microsoft.com/fr-fr/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16
-
-*Remarque : les versions antérieures de MSSQL Server devraient fonctionner sans problèmes, mais elles n’ont pas été testées.
-
-*Dans le projet P7CreateRestApi, ouvrez le fichier appsettings.json file.*
-
-Vous verrez la section ConnectionStrings qui définit les chaînes de connexion pour la base de données utilisée dans cette application.
-
-      "ConnectionStrings":
-      {
-        "DefaultConnection": "Server=.;Database=VOTRE BASE DE DONNÉES;Trusted_Connection=True;MultipleActiveResultSets=true"
-      }
-
-Il existe différentes versions de MSSQL (veuillez utiliser MSSQL pour ce projet et non une autre base de données). Lors de la configuration du serveur de base de données, certains paramètres peuvent modifier la configuration, de sorte que les chaînes de connexion définies pourraient ne pas fonctionner.
-
-Les chaînes de connexion définies dans le projet sont configurées pour MSSQL Server Standard 2019. L’installation n’ayant pas créé de nom d’instance, le serveur est simplement désigné par « . », ce qui signifie l’instance par défaut du serveur MSSQL en cours d’exécution sur la machine actuelle. Pendant l’installation, c’est l’utilisateur intégré de Windows qui est configuré dans le serveur MSSQL par défaut.
-
-Si vous avez installé MSSQL Express, la valeur à utiliser pour Server est probablement .\SQLEXPRESS. Donc votre chaîne de connexion à la base de données serait : -
-
-    "DefaultConnection": "Server=.\SQLEXPRESS;Database=VOTRE BASE DE DONNÉES;Trusted_Connection=True;MultipleActiveResultSets=true"
+# PostTrades
+> OpenClassrooms Projet 7 : Rendez votre back-end .NET plus flexible avec une API REST
 
 
-Vous devrez implémenter l’authentification et l’autorisation JWT avec **Microsoft Identity**. 
+## Informations Générales
+L'objectif de ce projet était de mettre en place une API REST sur des entités qui seront ensuite utilisées pour générer des transactions.
+Il fallait aussi implémenter une authentification avec JWT. Et réaliser des tests unitaire sur nos différents services.
 
-Si vous rencontrez des difficultés de connexion, essayez d’abord de vous connecter avec Microsoft SQL Server Management Studio (assurez-vous que le type d’authentification est « authentification Windows »), ou consultez le site https://sqlserver-help.com/2011/06/19/help-whats-my-sql-server-name/. Si le problème persiste, demandez de l’aide à votre mentor.
+## Technologies utilisées
+- .NET - 6.0
+- Microsoft.EntityFrameworkCore - 6.0.16
+- Microsoft.AspNetCore.Identity.EntityFrameworkCore - 6.0.16
+- Microsoft.AspNetCore.Authentication.JwtBearer - 6.0.16
+- Swashbuckle.AspNetCore - 6.5.0
+- Serilog - 3.1.1
+
+## Installation
+1. Cloner le projet 
+	```
+	git clone --single-branch --branch dev https://github.com/AxekPhanor/API_REST_Back-end.NET.git
+	```
+2. Modifier le fichier appsettings.json (remplacer la valeur de Server par le nom du serveur sur lequels vous voulez créer votre base de donnée)
+	```
+		"ConnectionStrings": {
+	  "DefaultConnection": "Server=.\\SQLEXPRESS;Database=PostTrades;Trusted_Connection=True;MultipleActiveResultSets=true"
+	},
+	```
+Ouvrez le fichier appsettings.json et dans la chaine de connexion remplacer la valeur de Data Source part le nom du serveur SQL Express.
+
+
+## Etat du projet
+Le projet est : _Terminé_ ✅
+
+## Contact
+Créer par [@AxekPhanor](https://github.com/AxekPhanor)
+
+Mail : axel.phanor64@gmail.com
+
