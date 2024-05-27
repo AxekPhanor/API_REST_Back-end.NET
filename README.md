@@ -27,6 +27,30 @@ Il fallait aussi implémenter une authentification avec JWT. Et réaliser des te
 	```
 Ouvrez le fichier appsettings.json et dans la chaine de connexion remplacer la valeur de Data Source part le nom du serveur SQL Express.
 
+## Utilisation
+Pour se connecter à l'API, vous devez d'abord créer un utilisateur. Utilisez la route suivante pour ajouter un nouvel utilisateur **Route :** POST /User/add
+**Exemple de requête :** 
+```
+{
+	"userName": "votre-nom-utilisateur",
+	"password": "votre-mot-de-passe" 
+} 
+```
+Après avoir créé un utilisateur, connectez-vous pour obtenir un token d'authentification. Utilisez la route suivante :
+**Route :** POST /Auth/login
+**Exemple de requête :**
+```
+{  "username":  "votre-nom-utilisateur",  "password":  "votre-mot-de-passe"  }
+```
+**Réponse :**
+```
+{  
+	"token":  "votre-token"
+}
+```
+
+Pour accéder aux routes protégées, vous devez fournir le token récupéré lors de la connexion. Cliquez sur le bouton `Authorize` en haut de la documentation swagger et entrez le token au format suivant : `Bearer <votre-token>`.
+Cela va permettre de créer un header Authorize avec pour valeur `Bearer <votre-token>`.
 
 ## Etat du projet
 Le projet est : _Terminé_ ✅
