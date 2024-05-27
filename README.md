@@ -52,6 +52,8 @@ Après avoir créé un utilisateur, connectez-vous pour obtenir un token d'authe
 Pour accéder aux routes protégées, vous devez fournir le token récupéré lors de la connexion. Cliquez sur le bouton `Authorize` en haut de la documentation swagger et entrez le token au format suivant : `Bearer <votre-token>`.
 Cela va permettre de créer un header Authorize avec pour valeur `Bearer <votre-token>`.
 
+Cette connexion va vous permettre d'accéder à la route `/Home` pour ceux ayant le rôle User et `/Home/Admin` pour ceux ayant le rôle Admin.
+
 ## Etat du projet
 Le projet est : _Terminé_ ✅
 
