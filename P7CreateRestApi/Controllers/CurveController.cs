@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
@@ -18,6 +19,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
+        [Authorize(policy: "User")]
         public IActionResult Home()
         {
             Log.Information("Récupération de la liste des 'Curve'");
@@ -34,6 +36,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("get/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult Get([FromRoute] int id)
         {
             Log.Information("Récupération de 'Curve' avec l'id : {id}", id);
@@ -55,6 +58,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(policy: "User")]
         public IActionResult AddCurvePoint([FromBody] CurvePointInputModel inputModel)
         {
             Log.Information("Ajout d'une 'Curve'");
@@ -71,6 +75,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("update/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult ShowUpdateForm(int id)
         {
             Log.Information("Récupération sur la route 'update/id' de 'Curve' avec l'id : {id}", id);
@@ -92,6 +97,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] CurvePointInputModel inputModel)
         {
             Log.Information("Mise à jour de 'Curve' avec l'id : {id}", id);
@@ -114,6 +120,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult DeleteById(int id)
         {
             Log.Information("Suppression de 'Curve' avec l'id : {id}", id);

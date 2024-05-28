@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
@@ -17,6 +18,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
+        [Authorize(policy: "User")]
         public IActionResult List()
         {
             try
@@ -33,6 +35,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("get/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult Get([FromRoute] int id)
         {
             Log.Information("Récupération de 'BidList' avec l'id : {id}", id);
@@ -54,6 +57,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(policy: "User")]
         public IActionResult AddBidList([FromBody] BidListInputModel inputModel)
         {
             Log.Information("Ajout d'une 'BidList'");
@@ -70,6 +74,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("update/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult ShowUpdateForm(int id)
         {
             Log.Information("Récupération sur la route 'update/id' de 'BidList' avec l'id : {id}", id);
@@ -92,6 +97,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] BidListInputModel inputModel)
         {
             Log.Information("Mise à jour de 'BidList' avec l'id : {id}", id);
@@ -113,6 +119,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult DeleteById([FromRoute] int id)
         {
             Log.Information("Suppression de 'BidList' avec l'id : {id}", id);

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
@@ -17,6 +18,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
+        [Authorize(policy: "User")]
         public IActionResult Home()
         {
             Log.Information("Récupération de la liste des 'RuleName'");
@@ -33,6 +35,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("get/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult Get([FromRoute] int id)
         {
             Log.Information("Récupération de 'RuleName' avec l'id : {id}", id);
@@ -54,6 +57,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(policy: "User")]
         public IActionResult AddRuleName([FromBody] RuleNameInputModel inputModel)
         {
             Log.Information("Ajout d'une nouvelle 'RuleName'");
@@ -70,6 +74,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("update/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult ShowUpdateForm(int id)
         {
             Log.Information("Récupération sur la route 'update/id' de 'RuleName' avec l'id : {id}", id);
@@ -91,6 +96,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] RuleNameInputModel inputModel)
         {
             Log.Information("Mise à jour de 'RuleName' avec l'id : {id}", id);
@@ -112,6 +118,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult DeleteRuleName([FromRoute] int id)
         {
             Log.Information("Suppression de 'RuleName' avec l'id : {id}", id);

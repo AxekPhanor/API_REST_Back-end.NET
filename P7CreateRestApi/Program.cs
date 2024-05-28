@@ -130,6 +130,23 @@ using (var scope = app.Services.CreateScope())
     {
         await roleManager.CreateAsync(new IdentityRole<int> { Name = "User" });
         await roleManager.CreateAsync(new IdentityRole<int> { Name = "Admin" });
+
+        using var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+        var admins = await userManager.GetUsersInRoleAsync("Admin");
+        if (admins.Count == 0)
+        {
+            var user = new User
+            {
+                UserName = "admin",
+                FullName = "Admin",
+                Role = "Admin",
+            };
+            var result = await userManager.CreateAsync(user, "Sy4oSfGDBWZJ8hcwOG?h$V&");
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, user.Role);
+            }
+        }
     }
 }
 

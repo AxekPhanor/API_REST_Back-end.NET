@@ -1,4 +1,5 @@
 using Dot.Net.WebApi.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
@@ -19,6 +20,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
+        [Authorize(policy: "Admin")]
         public async Task<IActionResult> Home()
         {
             Log.Information("Récupération de la liste des 'User'");
@@ -35,6 +37,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(policy: "Admin")]
         public async Task<IActionResult> AddUser([FromBody] UserInputModel inputModel)
         {
             Log.Information("Ajout d'un utilisateur");
@@ -56,6 +59,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("update/{id}")]
+        [Authorize(policy: "Admin")]
         public IActionResult ShowUpdateForm(int id)
         {
             Log.Information("Récupération sur la route 'update/id' de 'User' avec l'id : {id}", id);
@@ -77,6 +81,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
+        [Authorize(policy: "Admin")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserInputModel inputModel)
         {
             Log.Information("Mise à jour de l'utilisateur avec l'id : {id}", id);
@@ -98,6 +103,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(policy: "Admin")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             Log.Information("Suppression de l'utilisateur avec l'id : {id}", id);
@@ -119,6 +125,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("/secure/article-details")]
+        [Authorize(policy: "Admin")]
         public async Task<ActionResult<List<User>>> GetAllUserArticles()
         {
             Log.Information("Récupération de la liste des utilisateurs");

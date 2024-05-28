@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Models.InputModel;
 using P7CreateRestApi.Services;
@@ -7,6 +8,7 @@ namespace Dot.Net.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(policy: "User")]
     public class TradeController : ControllerBase
     {
         private readonly ITradeService _tradeService;
@@ -17,6 +19,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
+        [Authorize(policy: "User")]
         public IActionResult Home()
         {
             Log.Information("Récupération de la liste des 'Trade'");
@@ -33,6 +36,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("get/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult Get([FromRoute] int id)
         {
             Log.Information("Récupération de 'Trade' avec l'id : {id}", id);
@@ -54,6 +58,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(policy: "User")]
         public IActionResult AddTrade([FromBody] TradeInputModel inputModel)
         {
             Log.Information("Ajout d'un 'Trade'");
@@ -70,6 +75,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpGet]
         [Route("update/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult ShowUpdateForm(int id)
         {
             Log.Information("Récupération sur la route 'update/id' de 'Trade' avec l'id : {id}", id);
@@ -91,6 +97,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpPost]
         [Route("update/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult UpdateById([FromRoute] int id, [FromBody] TradeInputModel inputModel)
         {
             Log.Information("Mise à jour de 'Trade' avec l'id : {id}", id);
@@ -112,6 +119,7 @@ namespace Dot.Net.WebApi.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
+        [Authorize(policy: "User")]
         public IActionResult DeleteTrade([FromRoute] int id)
         {
             Log.Information("Suppression de 'Trade' avec l'id : {id}", id);
