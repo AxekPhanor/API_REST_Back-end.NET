@@ -28,19 +28,14 @@ Il fallait aussi implémenter une authentification avec JWT. Et réaliser des te
 Ouvrez le fichier appsettings.json et dans la chaine de connexion remplacer la valeur de Data Source part le nom du serveur SQL Express.
 
 ## Utilisation
-Pour se connecter à l'API, vous devez d'abord créer un utilisateur. Utilisez la route suivante pour ajouter un nouvel utilisateur **Route :** POST /User/add
-**Exemple de requête :** 
-```
-{
-	"userName": "votre-nom-utilisateur",
-	"password": "votre-mot-de-passe" 
-} 
-```
-Après avoir créé un utilisateur, connectez-vous pour obtenir un token d'authentification. Utilisez la route suivante :
-**Route :** POST /Auth/login
+Pour se connecter à l'API, vous pouvez vous connecter pour obtenir un token d'authentification sur la route suivante avec ces identifiants :
+**Route :** `POST /Auth/login`
 **Exemple de requête :**
 ```
-{  "username":  "votre-nom-utilisateur",  "password":  "votre-mot-de-passe"  }
+{  
+	"username":  "admin",  
+	"password":  "Sy4oSfGDBWZJ8hcwOG?h$V&"  
+}
 ```
 **Réponse :**
 ```
@@ -52,7 +47,7 @@ Après avoir créé un utilisateur, connectez-vous pour obtenir un token d'authe
 Pour accéder aux routes protégées, vous devez fournir le token récupéré lors de la connexion. Cliquez sur le bouton `Authorize` en haut de la documentation swagger et entrez le token au format suivant : `Bearer <votre-token>`.
 Cela va permettre de créer un header Authorize avec pour valeur `Bearer <votre-token>`.
 
-Cette connexion va vous permettre d'accéder à la route `/Home` pour ceux ayant le rôle User et `/Home/Admin` pour ceux ayant le rôle Admin.
+Cette connexion va vous permettre d'accéder à toutes les routes de l'API.
 
 ## Etat du projet
 Le projet est : _Terminé_ ✅
