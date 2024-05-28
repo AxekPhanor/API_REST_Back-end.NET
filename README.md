@@ -30,7 +30,6 @@ Ouvrez le fichier appsettings.json et dans la chaine de connexion remplacer la v
 ## Utilisation
 Pour se connecter à l'API, vous pouvez vous connecter pour obtenir un token d'authentification sur la route suivante avec ces identifiants :
 **Route :** `POST /Auth/login`
-**Exemple de requête :**
 ```
 {  
 	"username":  "admin",  
