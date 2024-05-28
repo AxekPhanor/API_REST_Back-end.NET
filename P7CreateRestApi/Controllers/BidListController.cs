@@ -59,8 +59,7 @@ namespace Dot.Net.WebApi.Controllers
             Log.Information("Ajout d'une 'BidList'");
             try
             {
-                _bidListService.Create(inputModel);
-                return Ok(inputModel);
+                return Ok(_bidListService.Create(inputModel));
             }
             catch (Exception ex)
             {

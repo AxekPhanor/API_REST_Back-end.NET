@@ -59,8 +59,7 @@ namespace Dot.Net.WebApi.Controllers
             Log.Information("Ajout d'un 'Trade'");
             try
             {
-                _tradeService.Create(inputModel);
-                return Ok(inputModel);
+                return Ok(_tradeService.Create(inputModel));
             }
             catch (Exception ex)
             {

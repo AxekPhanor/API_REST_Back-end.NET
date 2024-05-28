@@ -60,8 +60,7 @@ namespace Dot.Net.WebApi.Controllers
             Log.Information("Ajout d'une 'Curve'");
             try
             {
-                _curvePointService.Create(inputModel);
-                return Ok(inputModel);
+                return Ok(_curvePointService.Create(inputModel));
             }
             catch (Exception ex)
             {

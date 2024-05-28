@@ -59,8 +59,7 @@ namespace Dot.Net.WebApi.Controllers
             Log.Information("Ajout d'une nouvelle 'RuleName'");
             try
             {
-                _ruleNameService.Create(inputModel);
-                return Ok(inputModel);
+                return Ok(_ruleNameService.Create(inputModel));
             }
             catch (Exception ex)
             {
