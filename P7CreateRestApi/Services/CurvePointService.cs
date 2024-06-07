@@ -30,6 +30,7 @@ namespace P7CreateRestApi.Services
             {
                 CurveId = inputModel.CurveId,
                 AsOfDate = inputModel.AsOfDate,
+                Term = inputModel.Term,
                 CurvePointValue = inputModel.CurvePointValue,
                 CreationDate = DateTime.Now
             };
@@ -54,6 +55,7 @@ namespace P7CreateRestApi.Services
                 Id = id,
                 CurveId = inputModel.CurveId,
                 AsOfDate = inputModel.AsOfDate,
+                Term = inputModel.Term,
                 CurvePointValue = inputModel.CurvePointValue,
                 CreationDate = DateTime.Now
             });

@@ -18,6 +18,7 @@
             {
                 CurveId = 1,
                 AsOfDate = DateTime.Now,
+                Term = 1.1,
                 CurvePointValue = 1.1
             };
             _curvePointRepositoryMock.Setup(m => m.Create(It.IsAny<CurvePoint>()));
@@ -153,6 +154,7 @@
             {
                 CurveId = 1,
                 AsOfDate = new DateTime(2024, 1, 1),
+                Term = 1.1,
                 CurvePointValue = 1.1
             };
             var inputModel = new CurvePointInputModel()
@@ -185,6 +187,7 @@
             {
                 CurveId = 1,
                 AsOfDate = DateTime.Now,
+                Term = 1.1,
                 CurvePointValue = 1.1
             });
 
